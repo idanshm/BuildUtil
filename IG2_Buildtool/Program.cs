@@ -12,10 +12,19 @@ namespace IG2_Buildtool
 
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine("####Welcome to IG2 Build Tool####\n");
+            MainMenu();
+
+            Console.WriteLine($"Selected options: {Menu.Client}, {Menu.Action}, {Menu.Config}");
+            Console.WriteLine("Press any key to exit...");
+            Console.ReadKey();
+        }
+
+        private static void MainMenu()
+        {
             switch (Menu.DisplyMainMenu())
             {
                 case (MainMenuOptions.Build):
-                    {   
+                    {
                         BuildMenuClientOptions retValue = Menu.DisplayBuildClientMenu();
                         NextStepClientBuildMenu(retValue);
                         break;
@@ -30,9 +39,6 @@ namespace IG2_Buildtool
                         break;
                     }
             }
-            Console.WriteLine($"Selected options: {Menu.Client}, {Menu.Action}, {Menu.Config}");
-            Console.WriteLine("Press any key to exit...");
-            Console.ReadKey();
         }
 
         private static void NextStepClientBuildMenu(BuildMenuClientOptions retValue)
@@ -46,7 +52,7 @@ namespace IG2_Buildtool
                     NextStepActionBuildMenu(retValue2);
                     break;
                 case BuildMenuClientOptions.Back:
-                    Main(null);
+                    MainMenu();
                     break;
                 case BuildMenuClientOptions.Exit:
                     Environment.Exit(0);
