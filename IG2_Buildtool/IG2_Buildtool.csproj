@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="EasyConsole" Version="1.1.0" />
+    <Folder Include="3rd-party\" />
   </ItemGroup>
 
 </Project>
