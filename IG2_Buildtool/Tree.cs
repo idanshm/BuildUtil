@@ -15,6 +15,7 @@ namespace IG2_Buildtool
             this.root = new TreeNode();
             
         }
+
         public void AddNode(T data,T parent)
         {
             var tempNode = FindNode(data);
@@ -45,15 +46,14 @@ namespace IG2_Buildtool
 
             TreeNode nodeLeaf = new TreeNode(data, nodeParent);
             nodeParent.AddChild(nodeLeaf);
-
         }
+
         public void AddNode(T data)
         {
             TreeNode nodeLeaf = new TreeNode(data, root);
             root.AddChild(nodeLeaf);
 
         }
-
 
         public void DeleteNode(T data)
         {
@@ -64,6 +64,7 @@ namespace IG2_Buildtool
             }
             node.parent.DeleteChild(data);
         }
+
         private TreeNode FindNode(T data)
         {
             if (this.root.childrens == null)
@@ -93,7 +94,6 @@ namespace IG2_Buildtool
             List<T> list = new List<T>(node.level);
             while (node.parent!=root)
             {
-
                 list.Add(node.parent.data);
                 node = node.parent;
             }
@@ -153,9 +153,6 @@ namespace IG2_Buildtool
                
                 childrens.RemoveAt(index);
             }
-
-            
         }
-
     }
 }

@@ -91,7 +91,7 @@ namespace IG2_Buildtool
             {
                 var parsedSelection = Enum.Parse<BuildMenuClientOptions>(userSelection);
                 Client = Enum.GetName(typeof(BuildMenuClientOptions), parsedSelection);
-                Console.WriteLine("You choosed: {0}", Client);
+                Console.WriteLine("You choosed: {0}\n", Client);
                 return parsedSelection;
             }
             else
