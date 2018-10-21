@@ -28,6 +28,14 @@ namespace IG2_Buildtool
         Exit = 0
     }
 
+    public enum BuildMenuConfigOptions
+    {
+        Debug = 1,
+        Release = 2,
+        Back = 9,
+        Exit = 0
+    }
+
     public static class Menus
     {
         public static MainMenuOptions DisplyMainMenu()
@@ -67,6 +75,19 @@ namespace IG2_Buildtool
             Console.Write("Action: ");
             int.TryParse(Console.ReadLine(), out int selection);
             return Enum.Parse<BuildMenuActionOptions>(selection.ToString());
+        }
+
+        public static BuildMenuConfigOptions DisplayBuildConfigMenu()
+        {
+            Console.WriteLine();
+            Console.WriteLine("Select build configuration from the list:");
+            Console.WriteLine("1. Debug");
+            Console.WriteLine("2. Release");
+            Console.WriteLine("9. Back");
+            Console.WriteLine("0. Exit");
+            Console.Write("Action: ");
+            int.TryParse(Console.ReadLine(), out int selection);
+            return Enum.Parse<BuildMenuConfigOptions>(selection.ToString());
         }
     }
 }

@@ -24,8 +24,6 @@ namespace IG2_Buildtool
                         break;
                     }
             }
-            
-
             Console.WriteLine("Press any key to exit...");
             Console.ReadKey();
         }
@@ -55,14 +53,31 @@ namespace IG2_Buildtool
             {
                 case BuildMenuActionOptions.Build:
                 case BuildMenuActionOptions.Rebuild:
+                    BuildMenuConfigOptions retValue3 = Menus.DisplayBuildConfigMenu();
+                    NextStepConfigBuildMenu(retValue3);
                     break;
                 case BuildMenuActionOptions.Back:
                     BuildMenuClientOptions retValue = Menus.DisplayBuildClientMenu();
                     NextStepClientBuildMenu(retValue);
-
-
                     break;
                 case BuildMenuActionOptions.Exit:
+                    Environment.Exit(0);
+                    break;
+            }
+        }
+
+        private static void NextStepConfigBuildMenu(BuildMenuConfigOptions retValue3)
+        {
+            switch (retValue3)
+            {   
+                case BuildMenuConfigOptions.Debug:
+                case BuildMenuConfigOptions.Release:
+                    break;
+                case BuildMenuConfigOptions.Back:
+                    BuildMenuActionOptions retValue = Menus.DisplayBuildActionMenu();
+                    NextStepActionBuildMenu(retValue);
+                    break;
+                case BuildMenuConfigOptions.Exit:
                     Environment.Exit(0);
                     break;
             }
