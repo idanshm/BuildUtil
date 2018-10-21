@@ -56,7 +56,7 @@ namespace IG2_Buildtool
             Console.WriteLine("Select client from the list:");
             Console.WriteLine("1. All");
             Console.WriteLine("2. Italy");
-            Console.WriteLine("2. Germany");
+            Console.WriteLine("3. Germany");
             Console.WriteLine("9. Back");
             Console.WriteLine("0. Exit");
             Console.Write("Action: ");
