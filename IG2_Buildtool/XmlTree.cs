@@ -1,13 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Xml;
 
 namespace IG2_Buildtool
 {
     class XmlTree
     {
-        Tree<string> xmlTree;
+        public readonly Tree<string> xmlTree;
         private XmlDocument xmlDoc;
         private string branches;
         public XmlTree(string path,string _nodes)
@@ -17,13 +15,10 @@ namespace IG2_Buildtool
             xmlDoc = new XmlDocument();
             xmlDoc.Load(path);
             createTree();
-
-
         }
         private void createTree()
         {
             XmlNodeList nodes = xmlDoc.DocumentElement.SelectNodes(branches);
-           
             foreach (XmlNode node in nodes)
             {
                 foreach (var child in node.ChildNodes)
@@ -48,7 +43,6 @@ namespace IG2_Buildtool
         }
         public void ShowTree()
         {
-           
             int level=-1;
             foreach (Node<string> t in xmlTree)
             {

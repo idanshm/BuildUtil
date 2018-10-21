@@ -7,6 +7,9 @@ namespace IG2_Buildtool
         static private Menus Menu = new Menus();
         static void Main(string[] args)
         {
+            bool tests = false;
+            if (tests) { Tests(); }
+
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine("####Welcome to IG2 Build Tool####\n");
             switch (Menu.DisplyMainMenu())
@@ -85,6 +88,14 @@ namespace IG2_Buildtool
                     Environment.Exit(0);
                     break;
             }
+        }
+
+        private static void Tests()
+        {
+            var test = new ProjectBuilder();
+            test.BuildAll();
+            Console.ReadKey();
+            Environment.Exit(0);
         }
     }
 }
