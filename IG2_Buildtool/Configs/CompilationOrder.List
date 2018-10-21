@@ -1,0 +1,392 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Root>
+  <PreBuiltFolders>
+    <Folder name="IG2.Dependencies">
+      <Path>\IG2.Dependencies\</Path>
+    </Folder>
+  </PreBuiltFolders>
+  <CompilationOrder>
+    <SLN name="IG2Common.sln">
+      <Component>Infra</Component>
+      <Path>\IG2.Common\Source\IG2Common\</Path>
+      <Tags>ALL  Chile Germany Italy Mexico Thailand Lab</Tags>
+      <MaxCPUCount>1</MaxCPUCount>
+      <Platform>ANY CPU</Platform>
+      <Ver>System</Ver>
+      <Parent>None</Parent>
+      <MSBuild>2013</MSBuild>
+    </SLN>
+    <SLN name="DistributedLocking.sln">
+      <Component>Infra</Component>
+      <Path>\Server Side  Apps\DistributedLocking\Source\</Path>
+      <Tags>ALL  Chile Germany Italy</Tags>
+      <MaxCPUCount>1</MaxCPUCount>
+      <Platform>ANY CPU</Platform>
+      <Ver>System</Ver>
+      <Parent>IG2Common.sln</Parent>
+      <MSBuild>2013</MSBuild>
+    </SLN>
+    <!--Start VideoGateway Compilation-->
+    <SLN name="Common.sln">
+      <Component>VideoGateway</Component>
+      <Path>\Server Side  Apps\VideoGateway\Source\Common\</Path>
+      <Tags>ALL Germany</Tags>
+      <MaxCPUCount>1</MaxCPUCount>
+      <Platform>ANY CPU</Platform>
+      <Ver>System</Ver>
+      <Parent>DistributedLocking.sln</Parent>
+      <MSBuild>2013</MSBuild>
+    </SLN>
+    <SLN name="VMDServer.Common.sln">
+      <Component>VideoGateway</Component>
+      <Path>\Server Side  Apps\VideoGateway\Source\Infrastructure\VMDServer.Common\</Path>
+      <Tags>ALL Germany</Tags>
+      <MaxCPUCount>1</MaxCPUCount>
+      <Platform>ANY CPU</Platform>
+      <Ver>System</Ver>
+      <Parent>Common.sln</Parent>
+      <MSBuild>2013</MSBuild>
+    </SLN>
+    <SLN name="ProjectionMapper.sln">
+      <Component>VideoGateway</Component>
+      <Path>\Server Side  Apps\VideoGateway\Source\Infrastructure\ProjectionMapper\</Path>
+      <Tags>ALL Germany</Tags>
+      <MaxCPUCount>1</MaxCPUCount>
+      <Platform>X64</Platform>
+      <Ver>System</Ver>
+      <Parent>Common.sln</Parent>
+      <MSBuild>2013</MSBuild>
+    </SLN>
+    <SLN name="Infrastructure.Common.sln">
+      <Component>VideoGateway</Component>
+      <Path>\Server Side  Apps\VideoGateway\Source\Infrastructure\Common\</Path>
+      <Tags>ALL Germany</Tags>
+      <MaxCPUCount>1</MaxCPUCount>
+      <Platform>ANY CPU</Platform>
+      <Ver>System</Ver>
+      <Parent>Common.sln</Parent>
+      <MSBuild>2013</MSBuild>
+    </SLN>
+    <SLN name="VideoGateway.Common.sln">
+      <Component>VideoGateway</Component>
+      <Path>\Server Side  Apps\VideoGateway\Source\Infrastructure\VideoGateway.Common\</Path>
+      <Tags>ALL Germany</Tags>
+      <MaxCPUCount>1</MaxCPUCount>
+      <Platform>ANY CPU</Platform>
+      <Ver>System</Ver>
+      <Parent>Common.sln</Parent>
+      <MSBuild>2013</MSBuild>
+    </SLN>
+    <SLN name="IG2Gateway.sln">
+      <Component>VideoGateway</Component>
+      <Path>\Server Side  Apps\VideoGateway\Source\Projects\IG2Gateway\</Path>
+      <Tags>ALL Germany</Tags>
+      <MaxCPUCount>1</MaxCPUCount>
+      <Platform>ANY CPU</Platform>
+      <Ver>System</Ver>
+      <Parent>Common.sln</Parent>
+      <MSBuild>2013</MSBuild>
+    </SLN>
+    <SLN name="IG2ImportExportServer.sln">
+      <Component>VideoGateway</Component>
+      <Path>\Server Side  Apps\VideoGateway\Source\Projects\IG2ImportExportServer\</Path>
+      <Tags>ALL Germany</Tags>
+      <MaxCPUCount>1</MaxCPUCount>
+      <Platform>ANY CPU</Platform>
+      <Ver>System</Ver>
+      <Parent>Common.sln</Parent>
+      <MSBuild>2013</MSBuild>
+    </SLN>
+    <!--End VideoGateway Compilation-->
+    <SLN name="SceneManager.sln">
+      <Component>Infra</Component>
+      <Path>\Server Side  Apps\SceneManager\Source\</Path>
+      <Tags>Italy</Tags>
+      <MaxCPUCount>1</MaxCPUCount>
+      <Platform>ANY CPU</Platform>
+      <Ver>System</Ver>
+      <Parent>IG2Common.sln</Parent>
+      <MSBuild>2013</MSBuild>
+    </SLN>
+    <SLN name="IG2AppCommon.sln">
+      <Component>Infra</Component>
+      <Path>\IG2\IG2.App.Common\Source\</Path>
+      <Tags>ALL  Chile Germany Italy Mexico Thailand Lab</Tags>
+      <MaxCPUCount>1</MaxCPUCount>
+      <Platform>ANY CPU</Platform>
+      <Ver>System</Ver>
+      <Parent>IG2Common.sln</Parent>
+      <MSBuild>2013</MSBuild>
+    </SLN>
+    <SLN name="ServerSide.Common.sln">
+      <Component>Apps</Component>
+      <Path>\Server Side  Apps\Common\Source\</Path>
+      <Tags>ALL  Chile Germany Italy Mexico Thailand Lab</Tags>
+      <MaxCPUCount>1</MaxCPUCount>
+      <Platform>ANY CPU</Platform>
+      <Ver>System</Ver>
+      <Parent>IG2Common.sln</Parent>
+      <MSBuild>2013</MSBuild>
+    </SLN>
+    <SLN name="Gateway.Common.sln">
+      <Component>Apps</Component>
+      <Path>\Server Side  Apps\Gateway\Common\Source\Gateway.Common\</Path>
+      <Tags>ALL  Chile Germany Italy Mexico Thailand Lab</Tags>
+      <MaxCPUCount>1</MaxCPUCount>
+      <Platform>ANY CPU</Platform>
+      <Ver>System</Ver>
+      <Parent>IG2Common.sln</Parent>
+      <MSBuild>2013</MSBuild>
+    </SLN>
+    <SLN name="Gateway.RT.sln">
+      <Component>Apps</Component>
+      <Path>\Server Side  Apps\Gateway\RT\Source\Gateway.RT\</Path>
+      <Tags>ALL  Chile Germany Italy Mexico Thailand Lab</Tags>
+      <MaxCPUCount>1</MaxCPUCount>
+      <Platform>ANY CPU</Platform>
+      <Ver>System</Ver>
+      <Parent>Gateway.Common.sln</Parent>
+      <MSBuild>2013</MSBuild>
+    </SLN>
+    <SLN name="Gateway.Core.sln">
+      <Component>Apps</Component>
+      <Path>\Server Side  Apps\Gateway\Core\Source\Gateway.Core\</Path>
+      <Tags>ALL  Chile Germany Italy Mexico Thailand Lab</Tags>
+      <MaxCPUCount>1</MaxCPUCount>
+      <Platform>ANY CPU</Platform>
+      <Ver>GWCompVer</Ver>
+      <Parent>Gateway.RT.sln</Parent>
+      <MSBuild>2013</MSBuild>
+    </SLN>
+    <SLN name="RT_MpService.sln">
+      <Component>Infra</Component>
+      <Path>\IG2\MP.RTService\Source\</Path>
+      <Tags>ALL Chile Germany Italy Mexico Thailand Lab</Tags>
+      <MaxCPUCount>1</MaxCPUCount>
+      <Platform>Mixed Platforms</Platform>
+      <Ver>System</Ver>
+      <Parent>IG2AppCommon.sln</Parent>
+      <MSBuild>2013</MSBuild>
+    </SLN>
+    <SLN name="LogsManager.sln">
+      <Component>Infra</Component>
+      <Path>\IG2\LogsManager\</Path>
+      <Tags>ALL  Chile Germany Italy Mexico Thailand Lab</Tags>
+      <MaxCPUCount>1</MaxCPUCount>
+      <Platform>ANY CPU</Platform>
+      <Ver>System</Ver>
+      <Parent>IG2AppCommon.sln</Parent>
+      <MSBuild>2013</MSBuild>
+    </SLN>
+    <SLN name="IG2Settings.sln">
+      <Component>Infra</Component>
+      <Path>\IG2\Settings\Source\</Path>
+      <Tags>ALL  Chile Germany Italy Mexico Thailand Lab</Tags>
+      <MaxCPUCount>1</MaxCPUCount>
+      <Platform>ANY CPU</Platform>
+      <Ver>System</Ver>
+      <Parent>IG2AppCommon.sln</Parent>
+      <MSBuild>2013</MSBuild>
+    </SLN>
+    <SLN name="PodSensorSerialsMapper.sln">
+      <Component>Infra</Component>
+      <Path>\IG2\Utility Apps\Source\PodSensorSerialsMapper\</Path>
+      <Tags>ALL  Chile Germany Italy Mexico Thailand Lab</Tags>
+      <MaxCPUCount>1</MaxCPUCount>
+      <Platform>ANY CPU</Platform>
+      <Ver>System</Ver>
+      <Parent>IG2AppCommon.sln</Parent>
+      <MSBuild>2013</MSBuild>
+    </SLN>
+    <SLN name="MissionPlanning.sln">
+      <Component>Infra</Component>
+      <Path>\IG2\MissionPlanning\</Path>
+      <Tags>ALL  Chile Germany Italy Mexico Thailand Lab</Tags>
+      <MaxCPUCount>1</MaxCPUCount>
+      <Platform>ANY CPU</Platform>
+      <Ver>MPAppVer</Ver>
+      <Parent>IG2AppCommon.sln</Parent>
+      <MSBuild>2013</MSBuild>
+    </SLN>
+    <SLN name="IG2.MissionManagementAndTech.sln">
+      <Component>Infra</Component>
+      <Path>\IG2\IG2.MissionManagementAndTech\</Path>
+      <Tags>ALL  Chile Germany Italy Mexico Thailand Lab</Tags>
+      <MaxCPUCount>1</MaxCPUCount>
+      <Platform>ANY CPU</Platform>
+      <Ver>TechnicianVer</Ver>
+      <Parent>Gateway.Core.sln</Parent>
+      <MSBuild>2013</MSBuild>
+    </SLN>
+    <SLN name="SD_Reader.sln">
+      <Component>Apps</Component>
+      <Path>\Server Side  Apps\ACE_DVR_SD_Reader\SD_Reader\</Path>
+      <Tags>ALL  Chile Germany Italy Mexico Thailand Lab</Tags>
+      <MaxCPUCount>1</MaxCPUCount>
+      <Platform>ANY CPU</Platform>
+      <Ver>System</Ver>
+      <Parent>IG2AppCommon.sln</Parent>
+      <MSBuild>2013</MSBuild>
+    </SLN>
+    <SLN name="IG2Application.sln">
+      <Component>Apps</Component>
+      <Path>\IG2\Application\Source\</Path>
+      <Tags>ALL Chile Germany Italy Mexico Thailand </Tags>
+      <MaxCPUCount>1</MaxCPUCount>
+      <Platform>ANY CPU</Platform>
+      <Ver>IG2AppCompVer</Ver>
+      <Parent>IG2AppCommon.sln</Parent>
+      <MSBuild>2013</MSBuild>
+    </SLN>
+    <SLN name="AnalysisTaskManagement.sln">
+      <Component>Infra</Component>
+      <Path>\IG2\AnalysisTaskManagement\Source\</Path>
+      <Tags>ALL Chile Germany Italy Mexico Thailand Lab</Tags>
+      <MaxCPUCount>1</MaxCPUCount>
+      <Platform>ANY CPU</Platform>
+      <Ver>System</Ver>
+      <Parent>IG2AppCommon.sln</Parent>
+      <MSBuild>2013</MSBuild>
+    </SLN>
+    <SLN name="GeneratePyramidsFromMemory.sln">
+      <Component>Apps</Component>
+      <Path>\Server Side  Apps\Gateway\RT\Source\GeneratePyramidsFromMemory\</Path>
+      <Tags>ALL Chile Germany Italy Mexico Thailand Lab</Tags>
+      <MaxCPUCount>1</MaxCPUCount>
+      <Platform>Mixed Platforms</Platform>
+      <Ver>System</Ver>
+      <Parent>IG2AppCommon.sln</Parent>
+      <MSBuild>2013</MSBuild>
+    </SLN>
+    <!-->SLN name="AntennaExternalTestings.sln">
+      <Component>Apps</Component>
+      <Path>\Server Side  Apps\Gateway\RT\Source\RTRDMWrapper.Utils\AntennaExternalTestings\</Path>
+      <Tags>ALL Chile Germany Italy Mexico Thailand Lab</Tags>
+      <MaxCPUCount>1</MaxCPUCount>
+      <Platform>ANY CPU</Platform>
+      <Ver>System</Ver>
+      <Parent>IG2Common.sln</Parent>
+      <MSBuild>2013</MSBuild>
+    </SLN-->
+    <SLN name="RTRDMWrapper.sln">
+      <Component>Apps</Component>
+      <Path>\Server Side  Apps\Gateway\RT\Source\RTRDMWrapper\</Path>
+      <Tags>ALL Chile Germany Italy Mexico Thailand Lab</Tags>
+      <MaxCPUCount>1</MaxCPUCount>
+      <Platform>Mixed Platforms</Platform>
+      <Ver>System</Ver>
+      <Parent>IG2Common.sln</Parent>
+      <MSBuild>2013</MSBuild>
+    </SLN>
+    <SLN name="SystemManagment.sln">
+      <Component>Apps</Component>
+      <Path>\Server Side  Apps\SystemManagment\Source\</Path>
+      <Tags>ALL  Chile Germany Italy Mexico Thailand Lab</Tags>
+      <MaxCPUCount>1</MaxCPUCount>
+      <Platform>ANY CPU</Platform>
+      <Ver>SCCompVer</Ver>
+      <Parent>IG2AppCommon.sln</Parent>
+      <MSBuild>2013</MSBuild>
+    </SLN>
+    <SLN name="IG2.ServerSide.Gateway.Rtm.IPFacade.csproj">
+      <Component>Apps</Component>
+      <Path>\Server Side  Apps\Gateway\Rtm\Source\Gateway.Rtm\IG2.ServerSide.Gateway.Rtm.IPFacade\</Path>
+      <Tags>ALL Chile Germany Italy Mexico Thailand Lab</Tags>
+      <MaxCPUCount>1</MaxCPUCount>
+      <Platform>ANYCPU</Platform>
+      <Ver>System</Ver>
+      <Parent>IG2Common.sln</Parent>
+      <MSBuild>2013</MSBuild>
+    </SLN>
+    <SLN name="IpUtils.sln">
+      <Component>Apps</Component>
+      <Path>\Server Side  Apps\IpUtils\Source\</Path>
+      <Tags>ALL Chile Germany Italy Mexico Thailand Lab</Tags>
+      <MaxCPUCount>1</MaxCPUCount>
+      <Platform>ANY CPU</Platform>
+      <Ver>System</Ver>
+      <Parent>IG2Common.sln</Parent>
+      <MSBuild>2013</MSBuild>
+    </SLN>
+    <SLN name="Orion.sln">
+      <Component>Apps</Component>
+      <Path>\Server Side  Apps\Orion\Source\</Path>
+      <Tags>ALL Chile Germany Italy Mexico Thailand Lab</Tags>
+      <MaxCPUCount>1</MaxCPUCount>
+      <Platform>ANY CPU</Platform>
+      <Ver>System</Ver>
+      <Parent>IG2Common.sln</Parent>
+      <MSBuild>2013</MSBuild>
+    </SLN>
+    <SLN name="Checksum.sln">
+      <Component>Tools</Component>
+      <Path>\IG2\Utility Apps\CheckSum\Source\</Path>
+      <Tags>ALL  Chile Germany Italy Mexico Thailand Lab</Tags>
+      <MaxCPUCount>1</MaxCPUCount>
+      <Platform>ANY CPU</Platform>
+      <Ver>System</Ver>
+      <Parent>IG2Common.sln</Parent>
+      <MSBuild>2013</MSBuild>
+    </SLN>
+    <SLN name="SPT.sln">
+      <Component>tools</Component>
+      <Path>\IG2\Utility Apps\SPT\Source\</Path>
+      <Tags>ALL  Chile Germany Italy Mexico Thailand Lab</Tags>
+      <MaxCPUCount>1</MaxCPUCount>
+      <Platform>ANY CPU</Platform>
+      <Parent>Checksum.sln</Parent>
+      <Ver>System</Ver>
+      <MSBuild>2013</MSBuild>
+    </SLN>
+    <SLN name="ExportMissionLocator.sln">
+      <Component>Apps</Component>
+      <Path>\Server Side  Apps\ExportMissionLocator\Source\ExportMissionLocator\</Path>
+      <Tags>ALL  Chile Germany Italy Mexico Thailand Lab</Tags>
+      <MaxCPUCount>1</MaxCPUCount>
+      <Platform>ANY CPU</Platform>
+      <Ver>System</Ver>
+      <Parent>IG2Common.sln</Parent>
+      <MSBuild>2013</MSBuild>
+    </SLN>
+    <SLN name="IG2.Planning.Algorithm.RT.sln">
+      <Component>Apps</Component>
+      <Path>\IG2.PlanningAlgorithm\Source\RT\</Path>
+      <Tags>ALL Chile Germany Italy Mexico Thailand Lab</Tags>
+      <MaxCPUCount>1</MaxCPUCount>
+      <Platform>ANY CPU</Platform>
+      <Ver>System</Ver>
+      <Parent>IG2AppCommon.sln</Parent>
+      <MSBuild>2013</MSBuild>
+    </SLN>
+    <SLN name="GateKeeper.sln">
+      <Component>Apps</Component>
+      <Path>\IG2\GateKeeper.Co.Op\Source\</Path>
+      <Tags>Italy</Tags>
+      <MaxCPUCount>1</MaxCPUCount>
+      <Platform>ANY CPU</Platform>
+      <Ver>System</Ver>
+      <Parent>IG2AppCommon.sln</Parent>
+      <MSBuild>2013</MSBuild>
+    </SLN>
+    <SLN name="LocalMosaic.Generic.Server.sln">
+      <Component>Apps</Component>
+      <Path>\Server Side  Apps\LocalMosaic\Source\LocalMosaic.Generic.Server\</Path>
+      <Tags>Italy</Tags>
+      <MaxCPUCount>1</MaxCPUCount>
+      <Platform>ANY CPU</Platform>
+      <Ver>System</Ver>
+      <Parent>IG2Common.sln</Parent>
+      <MSBuild>2017</MSBuild>
+    </SLN>
+    <SLN name="IG2_DB.sln">
+      <Component>Apps</Component>
+      <Path>\DB-Project\IG2_DB\</Path>
+      <Tags>Italy</Tags>
+      <MaxCPUCount>1</MaxCPUCount>
+      <Platform>ANY CPU</Platform>
+      <Ver>System</Ver>
+      <Parent>None</Parent>
+      <MSBuild>2017</MSBuild>
+    </SLN>
+  </CompilationOrder>
+</Root>
