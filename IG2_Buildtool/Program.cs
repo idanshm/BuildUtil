@@ -4,14 +4,16 @@ namespace IG2_Buildtool
 {
     class Program
     {
+        static private Menus Menu = new Menus();
         static void Main(string[] args)
         {
             Console.ForegroundColor = ConsoleColor.White;
-            switch (Menus.DisplyMainMenu())
+            Console.WriteLine("####Welcome to IG2 Build Tool####\n");
+            switch (Menu.DisplyMainMenu())
             {
                 case (MainMenuOptions.Build):
-                    {
-                        BuildMenuClientOptions retValue = Menus.DisplayBuildClientMenu();
+                    {   
+                        BuildMenuClientOptions retValue = Menu.DisplayBuildClientMenu();
                         NextStepClientBuildMenu(retValue);
                         break;
                     }
@@ -25,6 +27,7 @@ namespace IG2_Buildtool
                         break;
                     }
             }
+            Console.WriteLine($"Selected options: {Menu.Client}, {Menu.Action}, {Menu.Config}");
             Console.WriteLine("Press any key to exit...");
             Console.ReadKey();
         }
@@ -36,7 +39,7 @@ namespace IG2_Buildtool
                 case BuildMenuClientOptions.All:
                 case BuildMenuClientOptions.Italy:
                 case BuildMenuClientOptions.Germany:
-                    BuildMenuActionOptions retValue2 = Menus.DisplayBuildActionMenu();
+                    BuildMenuActionOptions retValue2 = Menu.DisplayBuildActionMenu();
                     NextStepActionBuildMenu(retValue2);
                     break;
                 case BuildMenuClientOptions.Back:
@@ -54,11 +57,11 @@ namespace IG2_Buildtool
             {
                 case BuildMenuActionOptions.Build:
                 case BuildMenuActionOptions.Rebuild:
-                    BuildMenuConfigOptions retValue3 = Menus.DisplayBuildConfigMenu();
+                    BuildMenuConfigOptions retValue3 = Menu.DisplayBuildConfigMenu();
                     NextStepConfigBuildMenu(retValue3);
                     break;
                 case BuildMenuActionOptions.Back:
-                    BuildMenuClientOptions retValue = Menus.DisplayBuildClientMenu();
+                    BuildMenuClientOptions retValue = Menu.DisplayBuildClientMenu();
                     NextStepClientBuildMenu(retValue);
                     break;
                 case BuildMenuActionOptions.Exit:
@@ -75,7 +78,7 @@ namespace IG2_Buildtool
                 case BuildMenuConfigOptions.Release:
                     break;
                 case BuildMenuConfigOptions.Back:
-                    BuildMenuActionOptions retValue = Menus.DisplayBuildActionMenu();
+                    BuildMenuActionOptions retValue = Menu.DisplayBuildActionMenu();
                     NextStepActionBuildMenu(retValue);
                     break;
                 case BuildMenuConfigOptions.Exit:

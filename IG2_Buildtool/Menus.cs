@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace IG2_Buildtool
 {
@@ -36,22 +35,39 @@ namespace IG2_Buildtool
         Exit = 0
     }
 
-    public static class Menus
+    public class Menus
     {
-        public static MainMenuOptions DisplyMainMenu()
+        private static Menus _instance;
+
+        public static Menus Instance =>_instance ?? InitMenus();
+
+        private static object _lock = new object();
+        private static Menus InitMenus()
+        {
+            lock(_lock)
+            {
+                return _instance ?? (_instance = new Menus()); 
+            }
+        }
+
+        public string Client { get; private set; }
+        public string Action { get; private set; }
+        public string Config { get; private set; }
+
+        public  MainMenuOptions DisplyMainMenu()
         {
             List<string> options = new List<string>(new string[] { "1", "2", "0" });
-            Console.WriteLine("####Welcome to IG2 Build Tool####\n");
             Console.WriteLine("Select an option from the list:");
             Console.WriteLine("1. Build");
             Console.WriteLine("2. Clean");
             Console.WriteLine("0. Exit");
             Console.Write("Action: ");
-            string sel = Console.ReadLine();
-            if (ValidateSelection(sel, options))
+            string userSelection = Console.ReadLine();
+            if (ValidateSelection(userSelection, options))
             {
-                int.TryParse(sel, out int selection);
-                return Enum.Parse<MainMenuOptions>(selection.ToString());
+                var parsedSelection = Enum.Parse<MainMenuOptions>(userSelection);
+                Console.WriteLine("You choosed: {0}", Enum.GetName(typeof(MainMenuOptions), parsedSelection));
+                return parsedSelection;
             }
             else
             {
@@ -60,7 +76,7 @@ namespace IG2_Buildtool
             
         }
 
-        public static BuildMenuClientOptions DisplayBuildClientMenu()
+        public BuildMenuClientOptions DisplayBuildClientMenu()
         {
             List<string> options = new List<string>(new string[] { "1", "2", "3", "9", "0" });
             Console.WriteLine();
@@ -71,11 +87,13 @@ namespace IG2_Buildtool
             Console.WriteLine("9. Back");
             Console.WriteLine("0. Exit");
             Console.Write("Action: ");
-            string sel = Console.ReadLine();
-            if (ValidateSelection(sel, options))
+            string userSelection = Console.ReadLine();
+            if (ValidateSelection(userSelection, options))
             {
-                int.TryParse(sel, out int selection);
-                return Enum.Parse<BuildMenuClientOptions>(selection.ToString());
+                var parsedSelection = Enum.Parse<BuildMenuClientOptions>(userSelection);
+                Client = Enum.GetName(typeof(BuildMenuClientOptions), parsedSelection);
+                Console.WriteLine("You choosed: {0}", Client);
+                return parsedSelection;
             }
             else
             {
@@ -83,7 +101,7 @@ namespace IG2_Buildtool
             }
         }
 
-        public static BuildMenuActionOptions DisplayBuildActionMenu()
+        public BuildMenuActionOptions DisplayBuildActionMenu()
         {
             List<string> options = new List<string>(new string[] { "1", "2", "9", "0" });
             Console.WriteLine();
@@ -93,11 +111,13 @@ namespace IG2_Buildtool
             Console.WriteLine("9. Back");
             Console.WriteLine("0. Exit");
             Console.Write("Action: ");
-            string sel = Console.ReadLine();
-            if (ValidateSelection(sel, options))
+            string userSelection = Console.ReadLine();
+            if (ValidateSelection(userSelection, options))
             {
-                int.TryParse(sel, out int selection);
-                return Enum.Parse<BuildMenuActionOptions>(selection.ToString());
+                var parsedSelection = Enum.Parse<BuildMenuActionOptions>(userSelection);
+                Action = Enum.GetName(typeof(BuildMenuActionOptions), parsedSelection);
+                Console.WriteLine("You choosed: {0}", Action);
+                return parsedSelection;
             }
             else
             {
@@ -106,7 +126,7 @@ namespace IG2_Buildtool
                 
         }
 
-        public static BuildMenuConfigOptions DisplayBuildConfigMenu()
+        public BuildMenuConfigOptions DisplayBuildConfigMenu()
         {
             List<string> options = new List<string>(new string[] { "1", "2", "9", "0" });
             Console.WriteLine();
@@ -116,11 +136,13 @@ namespace IG2_Buildtool
             Console.WriteLine("9. Back");
             Console.WriteLine("0. Exit");
             Console.Write("Action: ");
-            string sel = Console.ReadLine();
-            if (ValidateSelection(sel, options))
+            string userSelection = Console.ReadLine();
+            if (ValidateSelection(userSelection, options))
             {
-                int.TryParse(sel, out int selection);
-                return Enum.Parse<BuildMenuConfigOptions>(selection.ToString());
+                var parsedSelection = Enum.Parse<BuildMenuConfigOptions>(userSelection);
+                Config = Enum.GetName(typeof(BuildMenuConfigOptions), parsedSelection);
+                Console.WriteLine("You choosed: {0}", Config);
+                return parsedSelection;
             }
             else
             {
@@ -128,16 +150,16 @@ namespace IG2_Buildtool
             }
         }
 
-        static bool ValidateSelection(string selection, List<string> options)
+        static bool ValidateSelection(string userSelection, List<string> options)
         {
-            if (!int.TryParse(selection, out int result))
+            if (!int.TryParse(userSelection, out int result))
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("Action must be a number!\n");
                 Console.ForegroundColor = ConsoleColor.White;
                 return false;
             }
-            else if (!options.Contains(selection))
+            else if (!options.Contains(userSelection))
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("Invalid option!\n");
