@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 
-namespace ConsoleApp1
+namespace IG2_Buildtool
 {
     class Tree<T> : IEnumerable
     {
@@ -66,6 +66,8 @@ namespace ConsoleApp1
         }
         private TreeNode FindNode(T data)
         {
+            if (this.root.childrens == null)
+                return null;
             Queue<TreeNode> nodes = new Queue<TreeNode>(this.root.childrens);
 
             while (nodes.Count != 0)

@@ -16,25 +16,54 @@ namespace IG2_Buildtool
             xmlTree = new Tree<string>();
             xmlDoc = new XmlDocument();
             xmlDoc.Load(path);
-           
+            createTree();
+
+
         }
         private void createTree()
         {
             XmlNodeList nodes = xmlDoc.DocumentElement.SelectNodes(branches);
-            Console.WriteLine(nodes);
+           
             foreach (XmlNode node in nodes)
             {
-                var father = node.SelectSingleNode("father");
-                var name = node.SelectSingleNode("FirstName");
-                if (father != null)
+                foreach (var child in node.ChildNodes)
                 {
-                    xmlTree.AddNode(name.InnerText, father.InnerText);
+                    if (child.GetType() == typeof(XmlElement))
+                    {
+                        XmlElement elem=(XmlElement)child;
+                        var father = elem.SelectSingleNode("Parent");
+                        var name = elem;
+                        if (father != null || !father.InnerText.Contains("None"))
+                        {
+                            xmlTree.AddNode(name.Attributes["name"].Value, father.InnerText);
+                        }
+                        else
+                        {
+                            xmlTree.AddNode(name.Attributes["name"].Value);
+                        }
+                    }
+                }
+                
+            }
+        }
+        public void ShowTree()
+        {
+           
+            int level=-1;
+            foreach (Node<string> t in xmlTree)
+            {
+                if (level != t.level)
+                {
+                    
+                    Console.Write("{0}\n", t.level);
+                    level = t.level;
                 }
                 else
                 {
-                    xmlTree.AddNode(name.InnerText);
+                    Console.Write("{0}\t", t.level);
                 }
             }
         }
+
     }
 }
