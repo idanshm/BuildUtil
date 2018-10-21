@@ -40,18 +40,29 @@ namespace IG2_Buildtool
     {
         public static MainMenuOptions DisplyMainMenu()
         {
+            List<string> options = new List<string>(new string[] { "1", "2", "0" });
             Console.WriteLine("####Welcome to IG2 Build Tool####\n");
             Console.WriteLine("Select an option from the list:");
             Console.WriteLine("1. Build");
             Console.WriteLine("2. Clean");
             Console.WriteLine("0. Exit");
             Console.Write("Action: ");
-            int.TryParse(Console.ReadLine(), out int selection);
-            return Enum.Parse<MainMenuOptions>(selection.ToString());
+            string sel = Console.ReadLine();
+            if (ValidateSelection(sel, options))
+            {
+                int.TryParse(sel, out int selection);
+                return Enum.Parse<MainMenuOptions>(selection.ToString());
+            }
+            else
+            {
+                return DisplyMainMenu();
+            }
+            
         }
 
         public static BuildMenuClientOptions DisplayBuildClientMenu()
         {
+            List<string> options = new List<string>(new string[] { "1", "2", "3", "9", "0" });
             Console.WriteLine();
             Console.WriteLine("Select client from the list:");
             Console.WriteLine("1. All");
@@ -60,12 +71,21 @@ namespace IG2_Buildtool
             Console.WriteLine("9. Back");
             Console.WriteLine("0. Exit");
             Console.Write("Action: ");
-            int.TryParse(Console.ReadLine(), out int selection);
-            return Enum.Parse<BuildMenuClientOptions>(selection.ToString());
+            string sel = Console.ReadLine();
+            if (ValidateSelection(sel, options))
+            {
+                int.TryParse(sel, out int selection);
+                return Enum.Parse<BuildMenuClientOptions>(selection.ToString());
+            }
+            else
+            {
+                return DisplayBuildClientMenu();
+            }
         }
 
         public static BuildMenuActionOptions DisplayBuildActionMenu()
         {
+            List<string> options = new List<string>(new string[] { "1", "2", "9", "0" });
             Console.WriteLine();
             Console.WriteLine("Select build action from the list:");
             Console.WriteLine("1. Build");
@@ -73,12 +93,22 @@ namespace IG2_Buildtool
             Console.WriteLine("9. Back");
             Console.WriteLine("0. Exit");
             Console.Write("Action: ");
-            int.TryParse(Console.ReadLine(), out int selection);
-            return Enum.Parse<BuildMenuActionOptions>(selection.ToString());
+            string sel = Console.ReadLine();
+            if (ValidateSelection(sel, options))
+            {
+                int.TryParse(sel, out int selection);
+                return Enum.Parse<BuildMenuActionOptions>(selection.ToString());
+            }
+            else
+            {
+                return DisplayBuildActionMenu();
+            }
+                
         }
 
         public static BuildMenuConfigOptions DisplayBuildConfigMenu()
         {
+            List<string> options = new List<string>(new string[] { "1", "2", "9", "0" });
             Console.WriteLine();
             Console.WriteLine("Select build configuration from the list:");
             Console.WriteLine("1. Debug");
@@ -86,8 +116,35 @@ namespace IG2_Buildtool
             Console.WriteLine("9. Back");
             Console.WriteLine("0. Exit");
             Console.Write("Action: ");
-            int.TryParse(Console.ReadLine(), out int selection);
-            return Enum.Parse<BuildMenuConfigOptions>(selection.ToString());
+            string sel = Console.ReadLine();
+            if (ValidateSelection(sel, options))
+            {
+                int.TryParse(sel, out int selection);
+                return Enum.Parse<BuildMenuConfigOptions>(selection.ToString());
+            }
+            else
+            {
+                return DisplayBuildConfigMenu();
+            }
+        }
+
+        static bool ValidateSelection(string selection, List<string> options)
+        {
+            if (!int.TryParse(selection, out int result))
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Action must be a number!\n");
+                Console.ForegroundColor = ConsoleColor.White;
+                return false;
+            }
+            else if (!options.Contains(selection))
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Invalid option!\n");
+                Console.ForegroundColor = ConsoleColor.White;
+                return false;
+            }
+            return true;
         }
     }
 }

@@ -6,6 +6,7 @@ namespace IG2_Buildtool
     {
         static void Main(string[] args)
         {
+            Console.ForegroundColor = ConsoleColor.White;
             switch (Menus.DisplyMainMenu())
             {
                 case (MainMenuOptions.Build):
