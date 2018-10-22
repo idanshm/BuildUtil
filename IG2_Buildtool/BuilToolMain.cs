@@ -82,7 +82,7 @@ namespace IG2_Buildtool
         private static void NextStepConfigBuildMenu(BuildMenuConfigOptions retValue3)
         {
             switch (retValue3)
-            {   
+            {
                 case BuildMenuConfigOptions.Debug:
                 case BuildMenuConfigOptions.Release:
                     break;
