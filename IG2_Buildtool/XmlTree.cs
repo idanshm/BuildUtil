@@ -28,7 +28,7 @@ namespace IG2_Buildtool
                         XmlElement elem=(XmlElement)child;
                         var father = elem.SelectSingleNode("Parent");
                         var name = elem;
-                        if (father != null || !father.InnerText.Contains("None"))
+                        if (father != null && !father.InnerText.Contains("None"))
                         {
                             xmlTree.AddNode(name.Attributes["name"].Value, father.InnerText);
                         }
