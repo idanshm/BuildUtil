@@ -39,12 +39,12 @@ namespace IG2_Buildtool
     {
         private static Menus _instance;
 
-        public static Menus Instance =>_instance ?? InitMenus();
+        public static Menus Instance => _instance ?? InitMenus();
 
         private static object _lock = new object();
         private static Menus InitMenus()
         {
-            lock(_lock)
+            lock (_lock)
             {
                 return _instance ?? (_instance = new Menus());
             }
@@ -54,7 +54,7 @@ namespace IG2_Buildtool
         public string Action { get; private set; }
         public string Config { get; private set; }
 
-        public  MainMenuOptions DisplyMainMenu()
+        public MainMenuOptions DisplyMainMenu()
         {
             List<string> options = new List<string>(new string[] { "1", "2", "0" });
             Console.WriteLine("Select an option from the list:");

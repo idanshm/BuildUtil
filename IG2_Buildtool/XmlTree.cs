@@ -8,7 +8,7 @@ namespace IG2_Buildtool
         public readonly Tree<string> xmlTree;
         private XmlDocument xmlDoc;
         private string branches;
-        public XmlTree(string path,string _nodes)
+        public XmlTree(string path, string _nodes)
         {
             branches = _nodes;
             xmlTree = new Tree<string>();
@@ -25,7 +25,7 @@ namespace IG2_Buildtool
                 {
                     if (child.GetType() == typeof(XmlElement))
                     {
-                        XmlElement elem=(XmlElement)child;
+                        XmlElement elem = (XmlElement)child;
                         var father = elem.SelectSingleNode("Parent");
                         var name = elem;
                         if (father != null && !father.InnerText.Contains("None"))
@@ -38,17 +38,17 @@ namespace IG2_Buildtool
                         }
                     }
                 }
-                
+
             }
         }
         public void ShowTree()
         {
-            int level=-1;
+            int level = -1;
             foreach (Node<string> t in xmlTree)
             {
                 if (level != t.level)
                 {
-                    
+
                     Console.Write("{0}\n", t.level);
                     level = t.level;
                 }
