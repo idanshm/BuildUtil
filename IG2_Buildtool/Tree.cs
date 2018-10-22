@@ -1,9 +1,10 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 
 namespace IG2_Buildtool
 {
-    class Tree<T> : IEnumerable
+    class Tree<T>:IEnumerable 
     {
         TreeNode root;
         
@@ -14,22 +15,23 @@ namespace IG2_Buildtool
             
         }
 
-        public void AddNode(T data,T parent)
+        public bool AddNode(T data,T parent)
         {
+            
             var tempNode = FindNode(data);
             TreeNode nodeParent = FindNode(parent);
             if (nodeParent == null)
             {
-                nodeParent = new TreeNode(parent, root);
-                root.AddChild(nodeParent);
+                return false;
             }
             if (tempNode != null)
             {
                 ExistNode(tempNode, data, nodeParent);
-                return;
+                return true;
             }
             TreeNode nodeLeaf = new TreeNode(data, nodeParent);
             nodeParent.AddChild(nodeLeaf);
+            return true;
         }
         private void ExistNode(TreeNode treeNode,T data, TreeNode nodeParent)
         {
@@ -124,6 +126,7 @@ namespace IG2_Buildtool
         private class TreeNode
         {
             public readonly T data;
+
             public TreeNode parent;
             public int level;
             public List<TreeNode> childrens;

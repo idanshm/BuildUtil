@@ -11,39 +11,31 @@ namespace IG2_Buildtool
         {
             string CompilationOrderListPath = Path.GetFullPath(@"..\..\..\Configs\CompilationOrder.List");
             XmlTree xmlTree = new XmlTree(CompilationOrderListPath, "/Root/CompilationOrder");
-            List<Task> tasks = new List<Task>();
+            
+            List <Task> tasks = new List<Task>();
             int level = 1;
-            foreach (Node<string> x in xmlTree.xmlTree)
+            foreach (Node<SLN> x in xmlTree.xmlTree)
             {
                 if (level == x.level)
                 {
-                    tasks.Add(Task.Factory.StartNew(() => SaySomething(x.data + " level:" + x.level)));
+                    tasks.Add(Task.Factory.StartNew(() => build(x.data + " level:" + x.level)));
                 }
                 else
                 {
                     Task.WaitAll(tasks.ToArray());
                     tasks.Clear();
                     level = x.level;
-                    tasks.Add(Task.Factory.StartNew(() => SaySomething(x.data + " level:" + x.level)));
+                    tasks.Add(Task.Factory.StartNew(() => build(x.data + " level:" + x.level)));
                 }
             }
         }
 
-        static void SaySomething(object thing)
+        static void build(object thing)
         {
-            /*Process cmd = new Process();
-            cmd.StartInfo.FileName = "cmd.exe";
-            cmd.StartInfo.RedirectStandardInput = true;
-            cmd.StartInfo.RedirectStandardOutput = true;
-            cmd.StartInfo.CreateNoWindow = true;
-            cmd.StartInfo.UseShellExecute = false;
-            cmd.Start();
-
-            cmd.StandardInput.WriteLine("echo Oscar");
-            cmd.StandardInput.Flush();
-            cmd.StandardInput.Close();
-            cmd.WaitForExit();
-            Console.WriteLine(cmd.StandardOutput.ReadToEnd());*/
+           // var p = new Process();
+           // p.StartInfo = new ProcessStartInfo(@"C:\Windows\Microsoft.NET\Framework\v4.0.30319\msbuild.exe");
+           // p.StartInfo.Arguments = @"C:\example\project.csproj";
+           // p.Start();
             Console.WriteLine(thing);
         }
     }

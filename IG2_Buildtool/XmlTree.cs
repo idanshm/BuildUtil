@@ -1,17 +1,18 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Xml;
 
 namespace IG2_Buildtool
 {
     class XmlTree
     {
-        public readonly Tree<string> xmlTree;
+        public readonly Tree<SLN> xmlTree;
         private XmlDocument xmlDoc;
         private string branches;
         public XmlTree(string path,string _nodes)
         {
             branches = _nodes;
-            xmlTree = new Tree<string>();
+            xmlTree = new Tree<SLN>();
             xmlDoc = new XmlDocument();
             xmlDoc.Load(path);
             createTree();
@@ -19,6 +20,8 @@ namespace IG2_Buildtool
         private void createTree()
         {
             XmlNodeList nodes = xmlDoc.DocumentElement.SelectNodes(branches);
+            Stack<(SLN,SLN)> stack = new Stack<(SLN, SLN)>();
+            
             foreach (XmlNode node in nodes)
             {
                 foreach (var child in node.ChildNodes)
@@ -27,36 +30,43 @@ namespace IG2_Buildtool
                     {
                         XmlElement elem=(XmlElement)child;
                         var father = elem.SelectSingleNode("Parent");
-                        var name = elem;
+                        
+                        SLN sln = parseData(elem);
+                        SLN parent = new SLN(father.InnerText, "", "", null);
                         if (father != null && !father.InnerText.Contains("None"))
                         {
-                            xmlTree.AddNode(name.Attributes["name"].Value, father.InnerText);
+                            if (!xmlTree.AddNode(sln, parent))
+                            {
+                               stack.Push((sln, parent));
+                            }
                         }
                         else
                         {
-                            xmlTree.AddNode(name.Attributes["name"].Value);
+                            xmlTree.AddNode(sln);
                         }
                     }
                 }
                 
             }
-        }
-        public void ShowTree()
-        {
-            int level=-1;
-            foreach (Node<string> t in xmlTree)
+            while (stack.Count != 0)
             {
-                if (level != t.level)
+                var item = stack.Pop();
+                if (!xmlTree.AddNode(item.Item1, item.Item2))
                 {
-                    
-                    Console.Write("{0}\n", t.level);
-                    level = t.level;
-                }
-                else
-                {
-                    Console.Write("{0}\t", t.level);
+                    stack.Push(item);
                 }
             }
+
+
+        }
+       private SLN parseData(XmlElement elem)
+        {
+            string name = elem.Attributes["name"].Value;
+            string path = elem.SelectSingleNode("Path").InnerText;
+            string component = elem.SelectSingleNode("Component").InnerText;
+            List<string> tags = new List<string>(elem.SelectSingleNode("Tags").InnerText.Split(' '));
+            SLN sln = new SLN(name, component, path, tags);
+            return sln;
         }
 
     }
