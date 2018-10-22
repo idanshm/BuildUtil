@@ -2,17 +2,29 @@
 
 namespace IG2_Buildtool
 {
-    class Program
+    class BuilToolMain
     {
         static private Menus Menu = new Menus();
         static void Main(string[] args)
         {
+            bool tests = false;
+            if (tests) { Tests(); }
+
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine("####Welcome to IG2 Build Tool####\n");
+            MainMenu();
+
+            Console.WriteLine($"Selected options: {Menu.Client}, {Menu.Action}, {Menu.Config}");
+            Console.WriteLine("Press any key to exit...");
+            Console.ReadKey();
+        }
+
+        private static void MainMenu()
+        {
             switch (Menu.DisplyMainMenu())
             {
                 case (MainMenuOptions.Build):
-                    {   
+                    {
                         BuildMenuClientOptions retValue = Menu.DisplayBuildClientMenu();
                         NextStepClientBuildMenu(retValue);
                         break;
@@ -27,9 +39,6 @@ namespace IG2_Buildtool
                         break;
                     }
             }
-            Console.WriteLine($"Selected options: {Menu.Client}, {Menu.Action}, {Menu.Config}");
-            Console.WriteLine("Press any key to exit...");
-            Console.ReadKey();
         }
 
         private static void NextStepClientBuildMenu(BuildMenuClientOptions retValue)
@@ -43,7 +52,7 @@ namespace IG2_Buildtool
                     NextStepActionBuildMenu(retValue2);
                     break;
                 case BuildMenuClientOptions.Back:
-                    Main(null);
+                    MainMenu();
                     break;
                 case BuildMenuClientOptions.Exit:
                     Environment.Exit(0);
@@ -85,6 +94,14 @@ namespace IG2_Buildtool
                     Environment.Exit(0);
                     break;
             }
+        }
+
+        private static void Tests()
+        {
+            var test = new ProjectBuilder();
+            test.BuildAll();
+            Console.ReadKey();
+            Environment.Exit(0);
         }
     }
 }

@@ -46,7 +46,7 @@ namespace IG2_Buildtool
         {
             lock(_lock)
             {
-                return _instance ?? (_instance = new Menus()); 
+                return _instance ?? (_instance = new Menus());
             }
         }
 
@@ -73,7 +73,6 @@ namespace IG2_Buildtool
             {
                 return DisplyMainMenu();
             }
-            
         }
 
         public BuildMenuClientOptions DisplayBuildClientMenu()
@@ -92,7 +91,7 @@ namespace IG2_Buildtool
             {
                 var parsedSelection = Enum.Parse<BuildMenuClientOptions>(userSelection);
                 Client = Enum.GetName(typeof(BuildMenuClientOptions), parsedSelection);
-                Console.WriteLine("You choosed: {0}", Client);
+                Console.WriteLine("You choosed: {0}\n", Client);
                 return parsedSelection;
             }
             else
@@ -123,7 +122,6 @@ namespace IG2_Buildtool
             {
                 return DisplayBuildActionMenu();
             }
-                
         }
 
         public BuildMenuConfigOptions DisplayBuildConfigMenu()
