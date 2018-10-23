@@ -7,7 +7,7 @@ namespace IG2_Buildtool
         static private Menus Menu = new Menus();
         static void Main(string[] args)
         {
-            bool tests = false;
+            bool tests = true;
             if (tests) { Tests(); }
 
             Console.ForegroundColor = ConsoleColor.White;
