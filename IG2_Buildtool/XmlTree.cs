@@ -20,7 +20,7 @@ namespace IG2_Buildtool
         private void createTree()
         {
             XmlNodeList nodes = xmlDoc.DocumentElement.SelectNodes(branches);
-            Stack<(SLN,SLN)> stack = new Stack<(SLN, SLN)>();
+            Dictionary<string,(SLN,string)> dic = new Dictionary<string, (SLN,string)>();
             
             foreach (XmlNode node in nodes)
             {
@@ -30,38 +30,43 @@ namespace IG2_Buildtool
                     {
                         XmlElement elem=(XmlElement)child;
                         var father = elem.SelectSingleNode("Parent");
-                        
+                        if (father == null)
+                            return;
                         SLN sln = parseData(elem);
-                        SLN parent = new SLN(father.InnerText, "", "", null);
-                        if (father != null && !father.InnerText.Contains("None"))
+                        string parent = father.InnerText;
+                        if (father.InnerText.Contains("None"))
                         {
-                            if (!xmlTree.AddNode(sln, parent))
-                            {
-                               stack.Push((sln, parent));
-                            }
+                            xmlTree.AddNode(sln);
+                            dic.Add(sln.Name, (sln, ""));
+
                         }
                         else
                         {
                             xmlTree.AddNode(sln);
+                            dic.Add(sln.Name, (sln,parent));
                         }
                     }
                 }
                 
             }
-            while (stack.Count != 0)
+           foreach (string key in dic.Keys)
             {
-                var item = stack.Pop();
-                if (!xmlTree.AddNode(item.Item1, item.Item2))
+
+                SLN child = dic[key].Item1;
+                var k = dic[key].Item2;
+                if (!k.Equals(""))
                 {
-                    stack.Push(item);
+                    SLN par = dic[k].Item1;
+                    xmlTree.AddParent(child, par);
                 }
             }
-
+            Console.WriteLine("fds");
 
         }
        private SLN parseData(XmlElement elem)
         {
             string name = elem.Attributes["name"].Value;
+           
             string path = elem.SelectSingleNode("Path").InnerText;
             string component = elem.SelectSingleNode("Component").InnerText;
             List<string> tags = new List<string>(elem.SelectSingleNode("Tags").InnerText.Split(' '));

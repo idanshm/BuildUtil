@@ -15,10 +15,12 @@ namespace IG2_Buildtool
             
         }
 
-        public bool AddNode(T data,T parent)
+         
+
+        public bool AddParent(T child,T parent)
         {
             
-            var tempNode = FindNode(data);
+            var tempNode = FindNode(child);
             TreeNode nodeParent = FindNode(parent);
             if (nodeParent == null)
             {
@@ -26,10 +28,10 @@ namespace IG2_Buildtool
             }
             if (tempNode != null)
             {
-                ExistNode(tempNode, data, nodeParent);
+                ExistNode(tempNode, child, nodeParent);
                 return true;
             }
-            TreeNode nodeLeaf = new TreeNode(data, nodeParent);
+            TreeNode nodeLeaf = new TreeNode(child, nodeParent);
             nodeParent.AddChild(nodeLeaf);
             return true;
         }
@@ -37,8 +39,9 @@ namespace IG2_Buildtool
         {
             if (treeNode.parent == root)
             {
-                nodeParent.AddChild(treeNode);
                 treeNode.parent = nodeParent;
+                nodeParent.AddChild(treeNode);
+               
                 if (treeNode.childrens != null)
                 {
                     foreach (var n in treeNode.childrens)
@@ -46,6 +49,7 @@ namespace IG2_Buildtool
                         n.level = treeNode.level + 1;
                     }
                 }
+              
                 root.DeleteChild(data);
             }
 

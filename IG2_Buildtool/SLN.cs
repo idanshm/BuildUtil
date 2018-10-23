@@ -29,9 +29,12 @@ namespace IG2_Buildtool
 
             return this.Name.Equals(item.Name);
         }
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
         public override string ToString()
         {
-
             return Name;
         }
     }

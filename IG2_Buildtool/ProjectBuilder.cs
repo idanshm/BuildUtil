@@ -14,19 +14,23 @@ namespace IG2_Buildtool
             
             List <Task> tasks = new List<Task>();
             int level = 1;
+            int count = 0;
             foreach (Node<SLN> x in xmlTree.xmlTree)
             {
                 if (level == x.level)
                 {
-                    tasks.Add(Task.Factory.StartNew(() => build(x.data + " level:" + x.level)));
+                    tasks.Add(Task.Factory.StartNew(() => build(string.Format("{0}\\{1}",x.data.Path,x.data.Name))));
                 }
                 else
                 {
                     Task.WaitAll(tasks.ToArray());
                     tasks.Clear();
                     level = x.level;
-                    tasks.Add(Task.Factory.StartNew(() => build(x.data + " level:" + x.level)));
+                    tasks.Add(Task.Factory.StartNew(() => build(string.Format("{0}\\{1}", x.data.Path, x.data.Name))));
                 }
+                count++;
+                
+               
             }
         }
 
