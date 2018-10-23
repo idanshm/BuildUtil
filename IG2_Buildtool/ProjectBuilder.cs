@@ -19,14 +19,14 @@ namespace IG2_Buildtool
             {
                 if (level == x.level)
                 {
-                    tasks.Add(Task.Factory.StartNew(() => build(string.Format("{0}\\{1}",x.data.Path,x.data.Name))));
+                    tasks.Add(Task.Factory.StartNew(() => build(string.Format("{0}{1}",x.data.Path,x.data.Name))));
                 }
                 else
                 {
                     Task.WaitAll(tasks.ToArray());
                     tasks.Clear();
                     level = x.level;
-                    tasks.Add(Task.Factory.StartNew(() => build(string.Format("{0}\\{1}", x.data.Path, x.data.Name))));
+                    tasks.Add(Task.Factory.StartNew(() => build(string.Format("{0}{1}", x.data.Path, x.data.Name))));
                 }
                 count++;
                 
