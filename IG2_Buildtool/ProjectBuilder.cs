@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.IO;
+using System.Diagnostics;
 
 namespace IG2_Buildtool
 {
@@ -19,14 +20,14 @@ namespace IG2_Buildtool
             {
                 if (level == x.level)
                 {
-                    tasks.Add(Task.Factory.StartNew(() => build(string.Format("{0}{1}",x.data.Path,x.data.Name))));
+                    tasks.Add(Task.Factory.StartNew(() => build(string.Format(@"D:\Repos\Devline-Balmas\MainBranch\{0}{1}", x.data.Path,x.data.Name))));
                 }
                 else
                 {
                     Task.WaitAll(tasks.ToArray());
                     tasks.Clear();
                     level = x.level;
-                    tasks.Add(Task.Factory.StartNew(() => build(string.Format("{0}{1}", x.data.Path, x.data.Name))));
+                    tasks.Add(Task.Factory.StartNew(() => build(string.Format(@"D:\Repos\Devline-Balmas\MainBranch\{0}{1}", x.data.Path, x.data.Name))));
                 }
                 count++;
                 
@@ -36,11 +37,11 @@ namespace IG2_Buildtool
 
         static void build(object thing)
         {
-           // var p = new Process();
-           // p.StartInfo = new ProcessStartInfo(@"C:\Windows\Microsoft.NET\Framework\v4.0.30319\msbuild.exe");
-           // p.StartInfo.Arguments = @"C:\example\project.csproj";
-           // p.Start();
-            Console.WriteLine(thing);
+            var p = new Process();
+            p.StartInfo = new ProcessStartInfo(@"C:\Program Files (x86)\MSBuild\12.0\Bin\msbuild.exe");
+            p.StartInfo.Arguments = thing.ToString();
+            p.Start();
+            //Console.WriteLine(thing);
         }
     }
 }
