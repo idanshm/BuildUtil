@@ -13,8 +13,10 @@ namespace IG2_Buildtool
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine("####Welcome to IG2 Build Tool####\n");
             MainMenu();
+            Console.WriteLine($"\nSelected options: {Menu.Client}, {Menu.Action}, {Menu.Config}");
+            
+            // After collecting user choices, start executing main logic of script here.
 
-            Console.WriteLine($"Selected options: {Menu.Client}, {Menu.Action}, {Menu.Config}");
             Console.WriteLine("Press any key to exit...");
             Console.ReadKey();
         }
