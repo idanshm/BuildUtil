@@ -368,7 +368,7 @@
       <Parent>IG2AppCommon.sln</Parent>
       <MSBuild>2013</MSBuild>
     </SLN>
-    <SLN name="LocalMosaic.Generic.Server.sln">
+    <!--SLN name="LocalMosaic.Generic.Server.sln">
       <Component>Apps</Component>
       <Path>\Server Side  Apps\LocalMosaic\Source\LocalMosaic.Generic.Server\</Path>
       <Tags>Italy</Tags>
@@ -377,8 +377,8 @@
       <Ver>System</Ver>
       <Parent>IG2Common.sln</Parent>
       <MSBuild>2017</MSBuild>
-    </SLN>
-    <SLN name="IG2_DB.sln">
+    </SLN-->
+    <!-->SLN name="IG2_DB.sln">
       <Component>Apps</Component>
       <Path>\DB-Project\IG2_DB\</Path>
       <Tags>Italy</Tags>
@@ -387,6 +387,6 @@
       <Ver>System</Ver>
       <Parent>None</Parent>
       <MSBuild>2017</MSBuild>
-    </SLN>
+    </SLN-->
   </CompilationOrder>
 </Root>

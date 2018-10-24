@@ -30,8 +30,6 @@ namespace IG2_Buildtool
                     tasks.Add(Task.Factory.StartNew(() => build(string.Format(@"D:\Repos\Devline-Balmas\MainBranch\{0}{1}", x.data.Path, x.data.Name))));
                 }
                 count++;
-                
-               
             }
         }
 
