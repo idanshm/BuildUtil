@@ -70,7 +70,7 @@ namespace IG2_Buildtool
 
         private bool CheckSLNPath(XmlTree Xmltree)
         {
-            string projectRoot = @"D:\Repos\Devline-Balmas\MainBranch\";
+            string projectRoot = @"D:\Repos\Devline-Balmas\MainBranch";
             foreach (Node<SLN> x in Xmltree.xmlTree)
             {
                 Console.ForegroundColor = ConsoleColor.White;
