@@ -60,7 +60,6 @@ namespace IG2_Buildtool
                     xmlTree.AddParent(child, par);
                 }
             }
-            Console.WriteLine("fds");
 
         }
        private SLN parseData(XmlElement elem)

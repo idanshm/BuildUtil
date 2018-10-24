@@ -7,21 +7,43 @@ namespace IG2_Buildtool
         static private Menus Menu = new Menus();
         static void Main(string[] args)
         {
-            bool tests = true;
+            bool tests = false;
             if (tests) { Tests(); }
 
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine("####Welcome to IG2 Build Tool####\n");
-            MainMenu();
-            Console.WriteLine($"\nSelected options: {Menu.Client}, {Menu.Action}, {Menu.Config}");
+            bool shouldrun = true;
+            while (shouldrun)
+            {
+                switch (MainMenu())
+                {
+                    case (1):
+                        {
+                            var compiler = new ProjectBuilder();
+                            Console.WriteLine($"\nSelected options: {Menu.Client}, {Menu.Action}, {Menu.Config}");
+                            Console.WriteLine("Starting build process...");
+                            compiler.BuildAll();
+                            break;
+                        }
+                    case 2:
+                        {
+                            Console.WriteLine("Starting clean process...");
+                            break;
+                        }
+                    case 0:
+                        {
+                            Console.WriteLine("Thank you for using IG2_BuildTool!");
+                            shouldrun = false;
+                            break;
+                        }
+                }
+            }
             
-            // After collecting user choices, start executing main logic of script here.
-
             Console.WriteLine("Press any key to exit...");
             Console.ReadKey();
         }
 
-        private static void MainMenu()
+        private static int MainMenu()
         {
             switch (Menu.DisplyMainMenu())
             {
@@ -29,18 +51,18 @@ namespace IG2_Buildtool
                     {
                         BuildMenuClientOptions retValue = Menu.DisplayBuildClientMenu();
                         NextStepClientBuildMenu(retValue);
-                        break;
+                        return 1;
                     }
                 case (MainMenuOptions.Clean):
                     {
-                        break;
+                        return 2;
                     }
                 case (MainMenuOptions.Exit):
                     {
-                        Environment.Exit(0);
-                        break;
+                        return 0;
                     }
             }
+            return 0;
         }
 
         private static void NextStepClientBuildMenu(BuildMenuClientOptions retValue)
