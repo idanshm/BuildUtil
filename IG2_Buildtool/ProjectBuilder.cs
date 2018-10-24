@@ -18,20 +18,20 @@ namespace IG2_Buildtool
             {
                 if (level == x.level)
                 {
-                    tasks.Add(Task.Factory.StartNew(() => build(string.Format(@"D:\Repos\Devline-Balmas\MainBranch\{0}{1}", x.data.Path,x.data.Name))));
+                    tasks.Add(Task.Factory.StartNew(() => Build(string.Format(@"D:\Repos\Devline-Balmas\MainBranch\{0}{1}", x.data.Path,x.data.Name))));
                 }
                 else
                 {
                     Task.WaitAll(tasks.ToArray());
                     tasks.Clear();
                     level = x.level;
-                    tasks.Add(Task.Factory.StartNew(() => build(string.Format(@"D:\Repos\Devline-Balmas\MainBranch\{0}{1}", x.data.Path, x.data.Name))));
+                    tasks.Add(Task.Factory.StartNew(() => Build(string.Format(@"D:\Repos\Devline-Balmas\MainBranch\{0}{1}", x.data.Path, x.data.Name))));
                 }
                 count++;
             }
         }
 
-        static void build(object thing)
+        static void Build(object thing)
         {
             var p = new Process();
             p.StartInfo = new ProcessStartInfo(@"C:\Program Files (x86)\MSBuild\12.0\Bin\msbuild.exe");
@@ -40,30 +40,51 @@ namespace IG2_Buildtool
             //Console.WriteLine(thing);
         }
 
-        private XmlTree createXmlTreeObject()
+        public bool PreTests()
+        {
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine("Starting pre tests verifications..");
+            XmlTree xml = CreateXmlTreeObject();
+            CheckMsBuild2013();
+            CheckSLNPath(xml);
+            return true;
+        }
+
+        private XmlTree CreateXmlTreeObject()
         {
             string CompilationOrderListPath = Path.GetFullPath(@"..\..\..\Configs\CompilationOrder.List");
             XmlTree xmlTree = new XmlTree(CompilationOrderListPath, "/Root/CompilationOrder");
             return xmlTree;
         }
 
-        static bool checkMsBuild2013()
+        private bool CheckMsBuild2013()
         {
             if (!File.Exists(@"C:\Program Files (x86)\MSBuild\12.0\Bin\msbuild.exe"))
             {
                 Console.WriteLine(@"Error: C:\Program Files (x86)\MSBuild\12.0\Bin\msbuild.exe not exist.");
                 return false;
             }
+            Console.WriteLine(@"MsBuild 12.0 found at C:\Program Files (x86)\MSBuild\12.0\Bin\msbuild.exe");
             return true;
         }
 
-        static bool checkSLNPath(string path)
+        private bool CheckSLNPath(XmlTree Xmltree)
         {
-            string CompilationOrderListPath = Path.GetFullPath(@"..\..\..\Configs\CompilationOrder.List");
-            XmlTree xmlTree = new XmlTree(CompilationOrderListPath, "/Root/CompilationOrder");
-            foreach (Node<SLN> x in xmlTree.xmlTree)
+            string projectRoot = @"D:\Repos\Devline-Balmas\MainBranch\";
+            foreach (Node<SLN> x in Xmltree.xmlTree)
             {
-             
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.Write("Checking path " + $"{projectRoot}{x.data.Path}{x.data.Name}....");
+                if (File.Exists($"{projectRoot}{x.data.Path}{x.data.Name}"))
+                {
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine("OK!");
+                }
+                else
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Failed!");
+                }
             }
             return true;
         }
