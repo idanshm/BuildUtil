@@ -8,15 +8,13 @@ namespace IG2_Buildtool
 {
     class ProjectBuilder
     {
-        public void BuildAll()
+
+        public void BuildAll(XmlTree Xmltree)
         {
-            string CompilationOrderListPath = Path.GetFullPath(@"..\..\..\Configs\CompilationOrder.List");
-            XmlTree xmlTree = new XmlTree(CompilationOrderListPath, "/Root/CompilationOrder");
-            
             List <Task> tasks = new List<Task>();
             int level = 1;
             int count = 0;
-            foreach (Node<SLN> x in xmlTree.xmlTree)
+            foreach (Node<SLN> x in Xmltree.xmlTree)
             {
                 if (level == x.level)
                 {
@@ -40,6 +38,34 @@ namespace IG2_Buildtool
             p.StartInfo.Arguments = thing.ToString();
             p.Start();
             //Console.WriteLine(thing);
+        }
+
+        private XmlTree createXmlTreeObject()
+        {
+            string CompilationOrderListPath = Path.GetFullPath(@"..\..\..\Configs\CompilationOrder.List");
+            XmlTree xmlTree = new XmlTree(CompilationOrderListPath, "/Root/CompilationOrder");
+            return xmlTree;
+        }
+
+        static bool checkMsBuild2013()
+        {
+            if (!File.Exists(@"C:\Program Files (x86)\MSBuild\12.0\Bin\msbuild.exe"))
+            {
+                Console.WriteLine(@"Error: C:\Program Files (x86)\MSBuild\12.0\Bin\msbuild.exe not exist.");
+                return false;
+            }
+            return true;
+        }
+
+        static bool checkSLNPath(string path)
+        {
+            string CompilationOrderListPath = Path.GetFullPath(@"..\..\..\Configs\CompilationOrder.List");
+            XmlTree xmlTree = new XmlTree(CompilationOrderListPath, "/Root/CompilationOrder");
+            foreach (Node<SLN> x in xmlTree.xmlTree)
+            {
+             
+            }
+            return true;
         }
     }
 }
