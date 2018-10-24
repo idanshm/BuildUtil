@@ -7,7 +7,7 @@ namespace IG2_Buildtool
         static private Menus Menu = new Menus();
         static void Main(string[] args)
         {
-            bool tests = true;
+            bool tests = false;
             if (tests) { Tests(); }
 
             Console.ForegroundColor = ConsoleColor.White;
@@ -22,7 +22,7 @@ namespace IG2_Buildtool
                             var compiler = new ProjectBuilder();
                             Console.WriteLine($"\nSelected options: {Menu.Client}, {Menu.Action}, {Menu.Config}");
                             Console.WriteLine("Starting build process...");
-                            //compiler.BuildAll();
+                            compiler.BuildAll();
                             break;
                         }
                     case 2:

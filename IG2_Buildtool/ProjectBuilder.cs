@@ -9,29 +9,34 @@ namespace IG2_Buildtool
     class ProjectBuilder
     {
 
-        public void BuildAll(XmlTree Xmltree)
+        public void BuildAll()
         {
-            List <Task> tasks = new List<Task>();
-            int level = 1;
-            int count = 0;
-            foreach (Node<SLN> x in Xmltree.xmlTree)
+            if (PreTests())
             {
-                if (level == x.level)
+                XmlTree Xmltree = CreateXmlTreeObject();
+                List<Task> tasks = new List<Task>();
+                int level = 1;
+                int count = 0;
+                foreach (Node<SLN> x in Xmltree.xmlTree)
                 {
-                    tasks.Add(Task.Factory.StartNew(() => Build(string.Format(@"D:\Repos\Devline-Balmas\MainBranch\{0}{1}", x.data.Path,x.data.Name))));
+                    if (level == x.level)
+                    {
+                        tasks.Add(Task.Factory.StartNew(() => Build(string.Format(@"D:\Repos\Devline-Balmas\MainBranch\{0}{1}", x.data.Path, x.data.Name))));
+                    }
+                    else
+                    {
+                        Task.WaitAll(tasks.ToArray());
+                        tasks.Clear();
+                        level = x.level;
+                        tasks.Add(Task.Factory.StartNew(() => Build(string.Format(@"D:\Repos\Devline-Balmas\MainBranch\{0}{1}", x.data.Path, x.data.Name))));
+                    }
+                    count++;
                 }
-                else
-                {
-                    Task.WaitAll(tasks.ToArray());
-                    tasks.Clear();
-                    level = x.level;
-                    tasks.Add(Task.Factory.StartNew(() => Build(string.Format(@"D:\Repos\Devline-Balmas\MainBranch\{0}{1}", x.data.Path, x.data.Name))));
-                }
-                count++;
             }
+            return;
         }
 
-        static void Build(object thing)
+        private void Build(object thing)
         {
             var p = new Process();
             p.StartInfo = new ProcessStartInfo(@"C:\Program Files (x86)\MSBuild\12.0\Bin\msbuild.exe");
@@ -47,10 +52,14 @@ namespace IG2_Buildtool
             XmlTree xml = CreateXmlTreeObject();
             if (!CheckMsBuild2013() || !CheckSLNPath(xml))
             {
-                Console.WriteLine("Pre-Tests failed!");
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Pre-Tests failed!\n");
+                Console.ForegroundColor = ConsoleColor.White;
                 return false;
             }
-            Console.WriteLine("All Pre-Tests passed successfully!");
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("All Pre-Tests passed successfully!\n");
+            Console.ForegroundColor = ConsoleColor.White;
             return true;
         }
 
@@ -89,6 +98,7 @@ namespace IG2_Buildtool
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("Failed!");
+                    Console.ForegroundColor = ConsoleColor.White;
                     isPathOk = false;
                 }
             }
@@ -96,6 +106,7 @@ namespace IG2_Buildtool
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("One or more solutions could not be found!");
+                Console.ForegroundColor = ConsoleColor.White;
                 return false;
             }
             return true;
