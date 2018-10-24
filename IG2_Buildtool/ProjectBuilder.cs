@@ -43,10 +43,14 @@ namespace IG2_Buildtool
         public bool PreTests()
         {
             Console.ForegroundColor = ConsoleColor.White;
-            Console.WriteLine("Starting pre tests verifications..");
+            Console.WriteLine("Starting Pre-Tests verifications...");
             XmlTree xml = CreateXmlTreeObject();
-            CheckMsBuild2013();
-            CheckSLNPath(xml);
+            if (!CheckMsBuild2013() || !CheckSLNPath(xml))
+            {
+                Console.WriteLine("Pre-Tests failed!");
+                return false;
+            }
+            Console.WriteLine("All Pre-Tests passed successfully!");
             return true;
         }
 
@@ -71,6 +75,7 @@ namespace IG2_Buildtool
         private bool CheckSLNPath(XmlTree Xmltree)
         {
             string projectRoot = @"D:\Repos\Devline-Balmas\MainBranch";
+            bool isPathOk = true;
             foreach (Node<SLN> x in Xmltree.xmlTree)
             {
                 Console.ForegroundColor = ConsoleColor.White;
@@ -84,7 +89,14 @@ namespace IG2_Buildtool
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("Failed!");
+                    isPathOk = false;
                 }
+            }
+            if (!isPathOk)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("One or more solutions could not be found!");
+                return false;
             }
             return true;
         }
