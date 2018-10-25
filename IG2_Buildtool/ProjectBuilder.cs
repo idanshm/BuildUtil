@@ -36,15 +36,16 @@ namespace IG2_Buildtool
                     count++;
                 }
             }
-            return;
+            Console.WriteLine("Finished!");
         }
 
         private void Build(object thing)
         {
             var p = new Process();
-            p.StartInfo = new ProcessStartInfo($@"{appsettings["msbuild2013"]}");
-            p.StartInfo.Arguments = thing.ToString();
+            p.StartInfo = new ProcessStartInfo($"{appsettings["msbuild2013"]}");
+            p.StartInfo.Arguments = $"{thing.ToString()}";
             p.Start();
+            p.WaitForExit();
             //Console.WriteLine(thing);
         }
 
