@@ -11,4 +11,8 @@
     <Folder Include="3rd-party\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.5.0" />
+  </ItemGroup>
+
 </Project>

@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.IO;
 using System.Diagnostics;
+using System.Collections.Specialized;
+using System.Configuration;
+
 
 namespace IG2_Buildtool
 {
     class ProjectBuilder
     {
-
+        NameValueCollection appsettings = ConfigurationManager.AppSettings;
         public void BuildAll()
         {
             if (PreTests())
@@ -21,14 +24,14 @@ namespace IG2_Buildtool
                 {
                     if (level == x.level)
                     {
-                        tasks.Add(Task.Factory.StartNew(() => Build(string.Format(@"D:\Repos\Devline-Balmas\MainBranch\{0}{1}", x.data.Path, x.data.Name))));
+                        tasks.Add(Task.Factory.StartNew(() => Build(string.Format($@"{appsettings["project_root"]}\{x.data.Path}{x.data.Name}"))));
                     }
                     else
                     {
                         Task.WaitAll(tasks.ToArray());
                         tasks.Clear();
                         level = x.level;
-                        tasks.Add(Task.Factory.StartNew(() => Build(string.Format(@"D:\Repos\Devline-Balmas\MainBranch\{0}{1}", x.data.Path, x.data.Name))));
+                        tasks.Add(Task.Factory.StartNew(() => Build(string.Format($@"{appsettings["project_root"]}\{x.data.Path}{x.data.Name}", x.data.Path, x.data.Name))));
                     }
                     count++;
                 }
@@ -39,7 +42,7 @@ namespace IG2_Buildtool
         private void Build(object thing)
         {
             var p = new Process();
-            p.StartInfo = new ProcessStartInfo(@"C:\Program Files (x86)\MSBuild\12.0\Bin\msbuild.exe");
+            p.StartInfo = new ProcessStartInfo($@"{appsettings["msbuild2013"]}");
             p.StartInfo.Arguments = thing.ToString();
             p.Start();
             //Console.WriteLine(thing);
@@ -72,18 +75,20 @@ namespace IG2_Buildtool
 
         private bool CheckMsBuild2013()
         {
-            if (!File.Exists(@"C:\Program Files (x86)\MSBuild\12.0\Bin\msbuild.exe"))
+            if (!File.Exists($@"{appsettings["msbuild2013"]}"))
             {
-                Console.WriteLine(@"Error: C:\Program Files (x86)\MSBuild\12.0\Bin\msbuild.exe not exist.");
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine($@"Error: {appsettings["msbuild2013"]} not exist.");
+                Console.ForegroundColor = ConsoleColor.White;
                 return false;
             }
-            Console.WriteLine(@"MsBuild 12.0 found at C:\Program Files (x86)\MSBuild\12.0\Bin\msbuild.exe");
+            Console.WriteLine($@"MsBuild 12.0 found at {appsettings["msbuild2013"]}");
             return true;
         }
 
         private bool CheckSLNPath(XmlTree Xmltree)
         {
-            string projectRoot = @"D:\Repos\Devline-Balmas\MainBranch";
+            string projectRoot = $@"{appsettings["project_root"]}";
             bool isPathOk = true;
             foreach (Node<SLN> x in Xmltree.xmlTree)
             {
