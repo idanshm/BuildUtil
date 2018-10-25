@@ -35,7 +35,9 @@ namespace IG2_Buildtool
                     }
                     count++;
                 }
+                Task.WaitAll(tasks.ToArray());
             }
+           
             Console.WriteLine("Finished!");
         }
 
