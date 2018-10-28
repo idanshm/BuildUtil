@@ -8,7 +8,7 @@ namespace IG2_Buildtool
         
         static void Main(string[] args)
         {
-            bool tests = false;
+            bool tests = true;
             if (tests) { Tests(); }
 
             Console.ForegroundColor = ConsoleColor.White;
@@ -123,8 +123,13 @@ namespace IG2_Buildtool
 
         private static void Tests()
         {
-            var test = new ProjectBuilder();
-            test.PreTests();
+            Menu MainMenu = new Menu(new string[] { "Build", "Clean", "Exit" });
+            Menu BuildMenu1 = new Menu(new string[] { "All", "Italy", "Germany", "Chille" });
+            Menu BuildMenu2 = new Menu(new string[] { "Debug", "Release" });
+            Menu BuildMenu3 = new Menu(new string[] { "Build", "Rebuild" });
+            
+            MainMenu.PrintMenu();
+            Console.WriteLine("Press any key to exit...");
             Console.ReadKey();
             Environment.Exit(0);
         }

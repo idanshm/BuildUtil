@@ -31,13 +31,11 @@ namespace IG2_Buildtool
                         Task.WaitAll(tasks.ToArray());
                         tasks.Clear();
                         level = x.level;
-                        tasks.Add(Task.Factory.StartNew(() => Build(string.Format($@"{appsettings["project_root"]}\{x.data.Path}{x.data.Name}", x.data.Path, x.data.Name))));
+                        tasks.Add(Task.Factory.StartNew(() => Build(string.Format($@"{appsettings["project_root"]}\{x.data.Path}{x.data.Name}"))));
                     }
                     count++;
                 }
-                Task.WaitAll(tasks.ToArray());
             }
-           
             Console.WriteLine("Finished!");
         }
 
@@ -45,7 +43,7 @@ namespace IG2_Buildtool
         {
             var p = new Process();
             p.StartInfo = new ProcessStartInfo($"{appsettings["msbuild2013"]}");
-            p.StartInfo.Arguments = $"{thing.ToString()}";
+            p.StartInfo.Arguments = $"{thing.ToString()} -t:rebuild /nologo /m ";
             p.Start();
             p.WaitForExit();
             //Console.WriteLine(thing);
