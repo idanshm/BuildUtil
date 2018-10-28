@@ -12,7 +12,7 @@ namespace IG2_Buildtool
     class ProjectBuilder
     {
         NameValueCollection appsettings = ConfigurationManager.AppSettings;
-        public void BuildAll()
+        public void BuildAll(string client = null, string configuration = null, string action = null)
         {
             if (PreTests())
             {
@@ -24,14 +24,14 @@ namespace IG2_Buildtool
                 {
                     if (level == x.level)
                     {
-                        tasks.Add(Task.Factory.StartNew(() => Build(string.Format($@"{appsettings["project_root"]}\{x.data.Path}{x.data.Name}"))));
+                        tasks.Add(Task.Factory.StartNew(() => Build(string.Format($@"{appsettings["project_root"]}\{x.data.Path}{x.data.Name} /t:{action} /p:Configuration={configuration} /nologo /m"))));
                     }
                     else
                     {
                         Task.WaitAll(tasks.ToArray());
                         tasks.Clear();
                         level = x.level;
-                        tasks.Add(Task.Factory.StartNew(() => Build(string.Format($@"{appsettings["project_root"]}\{x.data.Path}{x.data.Name}"))));
+                        tasks.Add(Task.Factory.StartNew(() => Build(string.Format($@"{appsettings["project_root"]}\{x.data.Path}{x.data.Name} /t:{action} /p:Configuration={configuration} /nologo /m"))));
                     }
                     count++;
                 }
@@ -43,7 +43,7 @@ namespace IG2_Buildtool
         {
             var p = new Process();
             p.StartInfo = new ProcessStartInfo($"{appsettings["msbuild2013"]}");
-            p.StartInfo.Arguments = $"{thing.ToString()} -t:rebuild /nologo /m ";
+            p.StartInfo.Arguments = $"{thing.ToString()}";
             p.Start();
             p.WaitForExit();
             //Console.WriteLine(thing);

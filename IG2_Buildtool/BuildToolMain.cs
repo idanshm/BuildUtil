@@ -12,12 +12,12 @@ namespace IG2_Buildtool
             bool tests = false;
             if (tests) { Tests(); }
 
-            Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine("####Welcome to IG2 Build Tool####\n");
             Menu MainMenu = new Menu(new string[] { "Build", "Clean", "Exit" });
 
             while (ShouldRun)
             {
+                Console.ForegroundColor = ConsoleColor.White;
                 MainMenu.PrintMenu();
                 switch (MainMenu.Selection)
                 {
@@ -28,10 +28,10 @@ namespace IG2_Buildtool
                     case 2:
                         Console.WriteLine("Starting cleaning process...");
                         break;
-                    case 999:
-                        break;
                     case 3:
                         ShouldRun = false;
+                        break;
+                    case 999:
                         break;
                 }
             }
