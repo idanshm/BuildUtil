@@ -4,9 +4,7 @@ namespace IG2_Buildtool
 {
     class BuildToolMain
     {
-        static private Menus Menu = new Menus();
         public static bool ShouldRun = true;
-
         static void Main(string[] args)
         {
             bool tests = false;

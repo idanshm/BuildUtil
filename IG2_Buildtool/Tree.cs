@@ -15,8 +15,6 @@ namespace IG2_Buildtool
             
         }
 
-         
-
         public bool AddParent(T child,T parent)
         {
             
