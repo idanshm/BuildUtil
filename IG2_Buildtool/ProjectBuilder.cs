@@ -14,7 +14,7 @@ namespace IG2_Buildtool
         NameValueCollection appsettings = ConfigurationManager.AppSettings;
         private static readonly Object obj = new Object();
         private readonly SimpleLogger log = new SimpleLogger();
-        public void BuildAll()
+        public void BuildAll(string client = null, string configuration = null, string action = null)
         {
             if (PreTests())
             {
