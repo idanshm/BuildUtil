@@ -41,17 +41,20 @@ namespace IG2_Buildtool
 
         private void SetSelection()
         {
-            Console.Write("Action: ");
+            Console.Write("\nAction: ");
             string selection = Console.ReadLine();
-            if (!SelectionDictionary.ContainsKey(selection))
+            if (!int.TryParse(selection, out int result))
             {
-                Console.WriteLine("Invalid option!\n");
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("\nAction must be a number!\n");
+                Console.ForegroundColor = ConsoleColor.White;
                 Selection = 999;
             }
-
-            else if (!int.TryParse(selection, out int result))
+            else if (!SelectionDictionary.ContainsKey(selection))
             {
-                Console.WriteLine("Action must be a number!\n");
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("\nInvalid option!\n");
+                Console.ForegroundColor = ConsoleColor.White;
                 Selection = 999;
             }
             else
@@ -63,7 +66,6 @@ namespace IG2_Buildtool
         public void PrintSelection()
         {
             Console.WriteLine("You choosed: " + SelectionDictionary[Selection.ToString()]);
-            //Console.WriteLine("You choosed: " + this.Selection.ToString());
         }
     }
 }
