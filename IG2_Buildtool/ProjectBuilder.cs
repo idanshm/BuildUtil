@@ -12,6 +12,8 @@ namespace IG2_Buildtool
     class ProjectBuilder
     {
         NameValueCollection appsettings = ConfigurationManager.AppSettings;
+        private static readonly Object obj = new Object();
+        private readonly SimpleLogger log = new SimpleLogger();
         public void BuildAll()
         {
             if (PreTests())
@@ -39,14 +41,20 @@ namespace IG2_Buildtool
             Console.WriteLine("Finished!");
         }
 
-        private void Build(object thing)
+        private void Build(string thing)
         {
             var p = new Process();
             p.StartInfo = new ProcessStartInfo($"{appsettings["msbuild2013"]}");
-            p.StartInfo.Arguments = $"{thing.ToString()} -t:rebuild /nologo /m ";
+            p.StartInfo.Arguments = $"{thing} -t:rebuild /nologo /m ";
+            p.StartInfo.RedirectStandardOutput = true;
+            p.StartInfo.CreateNoWindow = true;
             p.Start();
+            lock (obj)
+            {
+                log.Info(p.StandardOutput.ReadToEnd());
+            }
             p.WaitForExit();
-            //Console.WriteLine(thing);
+            
         }
 
         public bool PreTests()
