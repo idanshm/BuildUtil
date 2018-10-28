@@ -4,7 +4,7 @@
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <ApplicationIcon />
-    <StartupObject>IG2_Buildtool.BuilToolMain</StartupObject>
+    <StartupObject>IG2_Buildtool.BuildToolMain</StartupObject>
   </PropertyGroup>
 
   <ItemGroup>
