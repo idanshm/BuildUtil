@@ -65,13 +65,13 @@ namespace IG2_Buildtool
        private SLN parseData(XmlElement elem)
         {
             string name = elem.Attributes["name"].Value;
-           
+            string platform = elem.SelectSingleNode("Platform").InnerText;
             string path = elem.SelectSingleNode("Path").InnerText;
             string component = elem.SelectSingleNode("Component").InnerText;
+            string msbuild = elem.SelectSingleNode("MSBuild").InnerText;
             List<string> tags = new List<string>(elem.SelectSingleNode("Tags").InnerText.Split(' '));
-            SLN sln = new SLN(name, component, path, tags);
+            SLN sln = new SLN(name, component, path, tags, platform, msbuild);
             return sln;
         }
-
     }
 }

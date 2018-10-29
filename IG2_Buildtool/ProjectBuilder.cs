@@ -22,26 +22,44 @@ namespace IG2_Buildtool
                 List<Task> tasks = new List<Task>();
                 int level = 1;
                 int count = 0;
+                string msbuild2013 = appsettings["msbuild2013"];
+                string msbuild2017 = appsettings["msbuild2017"];
+                string msbuild = null;
+
                 foreach (Node<SLN> x in Xmltree.xmlTree)
                 {
+                    if (x.data.Msbuild == "2013")
+                    {
+                        msbuild = appsettings["msbuild2013"];
+                    }
+                    else if (x.data.Msbuild == "2017")
+                    {
+                        msbuild = appsettings["msbuild2017"];
+                    }
+                    else
+                    {
+                        msbuild = appsettings["msbuild2013"];
+                    }
+
+                    string sln = $"\"{appsettings["project_root"]}{x.data.Path}{x.data.Name}\"";
                     if (level == x.level)
                     {
-                        Build($"\"{appsettings["project_root"]}{x.data.Path}{x.data.Name}\" -t:{action} -p:Configuration={configuration} /m:4 /nologo");
+                        Build(msbuild, $"{sln} /t:{action} /p:Configuration={configuration} /p:Platform=\"{x.data.Platform}\" /m:1 /nologo");
                     }
                     else
                     {
                         level = x.level;
-                        Build($"\"{appsettings["project_root"]}{x.data.Path}{x.data.Name}\" -t:{action} -p:Configuration={configuration} /m:4 /nologo");
+                        Build(msbuild, $"{sln} /t:{action} /p:Configuration={configuration} /p:Platform=\"{x.data.Platform}\" /m:1 /nologo");
                     }
                     count++;
                 }
             }
         }
 
-        private void Build(string args)
+        private void Build(string args, string msbuild)
         {
             var p = new Process();
-            p.StartInfo.FileName = $"{appsettings["msbuild2013"]}";
+            p.StartInfo.FileName = $"{msbuild}";
             p.StartInfo.Arguments = $"{args}";
             Console.WriteLine(args);
             p.StartInfo.ErrorDialog = true;

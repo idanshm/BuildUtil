@@ -61,7 +61,6 @@ namespace IG2_Buildtool
                         break;
                 }
             }
-            
         }
 
         private void StartBuildMenu3()

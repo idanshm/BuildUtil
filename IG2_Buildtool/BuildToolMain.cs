@@ -16,6 +16,7 @@ namespace IG2_Buildtool
             while (ShouldRun)
             {
                 Console.ForegroundColor = ConsoleColor.White;
+                Console.WriteLine("Choose action from the menu: ");
                 MainMenu.PrintMenu();
                 switch (MainMenu.Selection)
                 {
