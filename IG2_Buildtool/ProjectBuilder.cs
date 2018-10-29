@@ -23,7 +23,8 @@ namespace IG2_Buildtool
                 int level = 1;
                 int count = 0;
                 string msbuild = null;
-                List<Process> pss = new List<Process>();
+                List<Process> processList = new List<Process>();
+
                 foreach (Node<SLN> x in Xmltree.xmlTree)
                 {
                     if (x.data.Msbuild == "2013")
@@ -36,44 +37,42 @@ namespace IG2_Buildtool
                     string sln = $"\"{appsettings["project_root"]}{x.data.Path}{x.data.Name}\"";
                     if (level == x.level)
                     {
-                        Process p = new Process();
-                        pss.Add(p);
-                        Build(p,msbuild, $"{sln} /t:{action} /p:Configuration={configuration} /p:Platform=\"{x.data.Platform}\" /m:1 /nologo");
-                        //Build( msbuild, $"{sln} /t:{action} /p:Configuration={configuration} /p:Platform=\"{x.data.Platform}\" /m:1 /nologo");
+                        Process process = new Process();
+                        processList.Add(process);
+                        Build(process, msbuild, $"{sln} /t:{action} /p:Configuration={configuration} /p:Platform=\"{x.data.Platform}\" /m:1 /nologo");
                     }
                     else
                     {
-                        foreach (var ps in pss)
+                        foreach (var ps in processList)
                         {
                             ps.WaitForExit();
                             ps.Refresh();
                         }
-                        pss.Clear();
+                        processList.Clear();
                         level = x.level;
-                        Process p = new Process();
-                        pss.Add(p);
-                        Build(p,msbuild, $"{sln} /t:{action} /p:Configuration={configuration} /p:Platform=\"{x.data.Platform}\" /m:1 /nologo");
-                        //Build(msbuild, $"{sln} /t:{action} /p:Configuration={configuration} /p:Platform=\"{x.data.Platform}\" /m:1 /nologo");
-                    }
+                        Process process = new Process();
+                        processList.Add(process);
+                        Build(process, msbuild, $"{sln} /t:{action} /p:Configuration={configuration} /p:Platform=\"{x.data.Platform}\" /m:1 /nologo");
+                    } 
                     count++;
                 }
-                foreach (var ps in pss)
+                foreach (var ps in processList)
                 {
                     ps.WaitForExit();
                 }
-                pss.Clear();
+                processList.Clear();
             }
         }
 
-        private void Build(Process p,string msbuild, string args)
+        private void Build(Process process,string msbuild, string args)
         {
            
-            p.StartInfo.FileName = $"{msbuild}";
-            p.StartInfo.Arguments = $"{args}";
+            process.StartInfo.FileName = $"{msbuild}";
+            process.StartInfo.Arguments = $"{args}";
             Console.WriteLine(args);
-            p.StartInfo.ErrorDialog = true;
-            p.StartInfo.WindowStyle = ProcessWindowStyle.Minimized;
-            p.Start();
+            process.StartInfo.ErrorDialog = true;
+            process.StartInfo.WindowStyle = ProcessWindowStyle.Minimized;
+            process.Start();
                      
         }
         /*
