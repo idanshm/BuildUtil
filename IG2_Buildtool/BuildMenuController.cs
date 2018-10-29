@@ -67,7 +67,7 @@ namespace IG2_Buildtool
         private void StartBuildMenu3()
         {
             bool shouldrunagain = true;
-            while (shouldrunagain)
+                while (shouldrunagain)
             {
                 Console.WriteLine("\nSelect Action: ");
                 BuildMenu3.PrintMenu();

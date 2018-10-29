@@ -26,35 +26,29 @@ namespace IG2_Buildtool
                 {
                     if (level == x.level)
                     {
-                        tasks.Add(Task.Factory.StartNew(() => Build(string.Format($@"{appsettings["project_root"]}\{x.data.Path}{x.data.Name} -t:{action} -p:Configuration={configuration} /nologo /m"))));
+                        Build($"\"{appsettings["project_root"]}{x.data.Path}{x.data.Name}\" -t:{action} -p:Configuration={configuration} /m:4 /nologo");
                     }
                     else
                     {
-                        Task.WaitAll(tasks.ToArray());
-                        tasks.Clear();
                         level = x.level;
-                        tasks.Add(Task.Factory.StartNew(() => Build(string.Format($@"{appsettings["project_root"]}\{x.data.Path}{x.data.Name} -t:{action} -p:Configuration={configuration} /nologo /m"))));
+                        Build($"\"{appsettings["project_root"]}{x.data.Path}{x.data.Name}\" -t:{action} -p:Configuration={configuration} /m:4 /nologo");
                     }
                     count++;
                 }
             }
-            Console.WriteLine("Finished!");
         }
 
-        private void Build(string thing)
+        private void Build(string args)
         {
             var p = new Process();
-            p.StartInfo = new ProcessStartInfo($"{appsettings["msbuild2013"]}");
-            p.StartInfo.Arguments = $"{thing}";
-            p.StartInfo.RedirectStandardOutput = true;
-            p.StartInfo.CreateNoWindow = true;
+            p.StartInfo.FileName = $"{appsettings["msbuild2013"]}";
+            p.StartInfo.Arguments = $"{args}";
+            Console.WriteLine(args);
+            p.StartInfo.ErrorDialog = true;
+            p.StartInfo.WindowStyle = ProcessWindowStyle.Minimized;
             p.Start();
-            lock (obj)
-            {
-                log.Info(p.StandardOutput.ReadToEnd());
-            }
             p.WaitForExit();
-            
+            p.Refresh();
         }
 
         public bool PreTests()
@@ -78,6 +72,10 @@ namespace IG2_Buildtool
         private XmlTree CreateXmlTreeObject()
         {
             string CompilationOrderListPath = Path.GetFullPath(@"..\..\..\Configs\CompilationOrder.List");
+            if (!File.Exists(CompilationOrderListPath))
+            {
+                CompilationOrderListPath = Path.GetFullPath(@".\Configs\CompilationOrder.List");
+            }
             XmlTree xmlTree = new XmlTree(CompilationOrderListPath, "/Root/CompilationOrder");
             return xmlTree;
         }
