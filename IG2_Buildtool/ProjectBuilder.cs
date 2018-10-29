@@ -22,8 +22,6 @@ namespace IG2_Buildtool
                 List<Task> tasks = new List<Task>();
                 int level = 1;
                 int count = 0;
-                string msbuild2013 = appsettings["msbuild2013"];
-                string msbuild2017 = appsettings["msbuild2017"];
                 string msbuild = null;
 
                 foreach (Node<SLN> x in Xmltree.xmlTree)
