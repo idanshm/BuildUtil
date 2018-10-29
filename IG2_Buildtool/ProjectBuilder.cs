@@ -29,17 +29,11 @@ namespace IG2_Buildtool
                 foreach (Node<SLN> x in Xmltree.xmlTree)
                 {
                     if (x.data.Msbuild == "2013")
-                    {
                         msbuild = appsettings["msbuild2013"];
-                    }
                     else if (x.data.Msbuild == "2017")
-                    {
                         msbuild = appsettings["msbuild2017"];
-                    }
                     else
-                    {
                         msbuild = appsettings["msbuild2013"];
-                    }
 
                     string sln = $"\"{appsettings["project_root"]}{x.data.Path}{x.data.Name}\"";
                     if (level == x.level)
@@ -56,7 +50,7 @@ namespace IG2_Buildtool
             }
         }
 
-        private void Build(string args, string msbuild)
+        private void Build(string msbuild, string args)
         {
             var p = new Process();
             p.StartInfo.FileName = $"{msbuild}";
