@@ -39,7 +39,7 @@ namespace IG2_Buildtool
                     {
                         Process process = new Process();
                         processList.Add(process);
-                        Build(process, msbuild, $"{sln} /t:{action} /p:Configuration={configuration} /p:Platform=\"{x.data.Platform}\" /m:1 /nologo");
+                        Build(process, msbuild, $"{sln} /t:{action} /p:Configuration={configuration} /p:Platform=\"{x.data.Platform}\" /m:1 /nologo /nr:false");
                     }
                     else
                     {
@@ -52,7 +52,7 @@ namespace IG2_Buildtool
                         level = x.level;
                         Process process = new Process();
                         processList.Add(process);
-                        Build(process, msbuild, $"{sln} /t:{action} /p:Configuration={configuration} /p:Platform=\"{x.data.Platform}\" /m:1 /nologo");
+                        Build(process, msbuild, $"{sln} /t:{action} /p:Configuration={configuration} /p:Platform=\"{x.data.Platform}\" /m:1 /nologo /nr:false");
                     } 
                     count++;
                 }
@@ -69,26 +69,11 @@ namespace IG2_Buildtool
            
             process.StartInfo.FileName = $"{msbuild}";
             process.StartInfo.Arguments = $"{args}";
-            Console.WriteLine(args);
             process.StartInfo.ErrorDialog = true;
             process.StartInfo.WindowStyle = ProcessWindowStyle.Minimized;
             process.Start();
                      
         }
-        /*
-        private void Build( string msbuild, string args)
-        {
-            var p = new Process();
-            p.StartInfo.FileName = $"{msbuild}";
-            p.StartInfo.Arguments = $"{args}";
-            Console.WriteLine(args);
-            p.StartInfo.ErrorDialog = true;
-            p.StartInfo.WindowStyle = ProcessWindowStyle.Minimized;
-            p.Start();
-            p.WaitForExit();
-            p.Refresh();
-        }
-        */
 
         public bool PreTests()
         {
